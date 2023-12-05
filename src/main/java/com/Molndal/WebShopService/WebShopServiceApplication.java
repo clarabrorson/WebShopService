@@ -19,5 +19,5 @@ public class WebShopServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WebShopServiceApplication.class, args);
 	}
-	
+
 }
