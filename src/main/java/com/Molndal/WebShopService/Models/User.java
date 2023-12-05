@@ -1,10 +1,10 @@
 package com.Molndal.WebShopService.Models;
 
-import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,6 +13,8 @@ import java.util.Set;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -20,6 +22,7 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private Long id;
 
+    @Column(unique = true)
     private String username;
 
     private String password;
@@ -37,6 +40,10 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
+
+    public User(long l, String username, String encryptedPassword, Set<Role> authorities) {
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

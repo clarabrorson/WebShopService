@@ -16,7 +16,7 @@ public class CartController {
     @Autowired
     private CartService Service;
 
-    @GetMapping("/myCart")
+    /*@GetMapping("/myCart")
     private ResponseEntity<Cart> getCart() {
         return Service.getCart();
 
@@ -35,7 +35,7 @@ public class CartController {
     }
 
     @DeleteMapping("/deleteArticle/{id}")
-    private ResponseEntity<Cart> deleteArticleFromCart(@RequestBody Artikel artikel) {
+    private ResponseEntity<Cart> deleteArticleFromCart(@RequestBody Article article) {
 
-    }
+    }*/
 }
