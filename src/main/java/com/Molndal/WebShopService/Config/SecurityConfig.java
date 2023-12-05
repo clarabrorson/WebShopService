@@ -95,7 +95,7 @@ public class SecurityConfig {
 
     //Denna metod definierar en bean för JwtAuthenticationConverter, som används för att konvertera en JWT till en Authentication-instans.
     //Detta behövs för att autentisera användaren och tilldela behörigheter baserat på JWT.
-    @Bean
+    /*@Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         //Skapar en JwtGrantedAuthoritiesConverter, som används för att konvertera JWT-anspråk till GrantedAuthority-instanser.
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
@@ -109,5 +109,5 @@ public class SecurityConfig {
         //Detta innebär att JwtAuthenticationConverter kommer att använda JwtGrantedAuthoritiesConverter för att konvertera JWT-anspråk till GrantedAuthority-instanser.
         jwtConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtConverter;
-    }
+    }*/
 }

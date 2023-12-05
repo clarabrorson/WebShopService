@@ -2,6 +2,7 @@ package com.Molndal.WebShopService.Service;
 
 import com.Molndal.WebShopService.Models.Role;
 import com.Molndal.WebShopService.Repository.RoleRepository;
+import com.Molndal.WebShopService.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
