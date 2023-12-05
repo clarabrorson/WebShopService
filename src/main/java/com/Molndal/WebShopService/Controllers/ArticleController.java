@@ -7,39 +7,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/webshop/artiklar")
+@RequestMapping("/webshop/articles")
 public class ArticleController {
 
     @GetMapping("")
-    private ResponseEntity<List<Article>> getArtiklar() {
+    private ResponseEntity<List<Article>> getArticles() {
     return null;
 
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Article> getOneArtikle(
+    private ResponseEntity<Article> getOneArticle(
             @PathVariable Long id
     ) {
         return null;
     }
 
     @PostMapping("")
-    private ResponseEntity<Article> addNewArtikle(
-            @RequestBody Article artikle
+    private ResponseEntity<Article> addNewArticle(
+            @RequestBody Article article
     ) {
         return null;
     }
 
     @PatchMapping("/{id}")
-    private ResponseEntity<Article> updateArtikle(
+    private ResponseEntity<Article> updateArticle(
             @PathVariable Long id,
-            @RequestBody Article artikle
+            @RequestBody Article article
     ) {
         return null;
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Article> deleteArtikle(
+    private ResponseEntity<Article> deleteArticle(
             @PathVariable Long id
     ) {
         return null;
