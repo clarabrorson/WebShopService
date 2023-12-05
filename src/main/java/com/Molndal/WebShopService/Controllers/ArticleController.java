@@ -1,6 +1,6 @@
 package com.Molndal.WebShopService.Controllers;
 
-import com.Molndal.WebShopService.Models.Artikel;
+import com.Molndal.WebShopService.Models.Article;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,34 +11,34 @@ import java.util.List;
 public class ArtiklarController {
 
     @GetMapping("")
-    private ResponseEntity<List<Artikel>> getArtiklar() {
+    private ResponseEntity<List<Article>> getArtiklar() {
 
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Artikel> getOneArtikle(
+    private ResponseEntity<Article> getOneArtikle(
             @PathVariable Long id
     ) {
 
     }
 
     @PostMapping("")
-    private ResponseEntity<Artikel> addNewArtikle(
-            @RequestBody Artikel artikle
+    private ResponseEntity<Article> addNewArtikle(
+            @RequestBody Article artikle
     ) {
 
     }
 
     @PatchMapping("/{id}")
-    private ResponseEntity<Artikel> updateArtikle(
+    private ResponseEntity<Article> updateArtikle(
             @PathVariable Long id,
-            @RequestBody Artikel artikle
+            @RequestBody Article artikle
     ) {
 
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Artikel> deleteArtikle(
+    private ResponseEntity<Article> deleteArtikle(
             @PathVariable Long id
     ) {
 
