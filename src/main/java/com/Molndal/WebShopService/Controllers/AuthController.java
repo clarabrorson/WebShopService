@@ -2,10 +2,10 @@ package com.Molndal.WebShopService.Controllers;
 
 import com.Molndal.WebShopService.Models.LoginResponse;
 import com.Molndal.WebShopService.Models.RegistrationPayload;
+import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

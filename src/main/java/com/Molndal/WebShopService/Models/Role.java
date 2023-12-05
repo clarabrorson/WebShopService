@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -19,6 +20,7 @@ public class Role implements GrantedAuthority {
     private Integer roleId;
 
     private String authority;
+
 
     @Override
     public String getAuthority() {
