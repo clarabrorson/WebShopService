@@ -21,6 +21,8 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 //Klass som konfigurerar säkerheten för Spring Security
@@ -95,8 +97,8 @@ public class SecurityConfig {
 
     //Denna metod definierar en bean för JwtAuthenticationConverter, som används för att konvertera en JWT till en Authentication-instans.
     //Detta behövs för att autentisera användaren och tilldela behörigheter baserat på JWT.
-    /*@Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter(){
         //Skapar en JwtGrantedAuthoritiesConverter, som används för att konvertera JWT-anspråk till GrantedAuthority-instanser.
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         //Sätter anspråksnamnet för auktoriteter till "roles". Detta innebär att auktoriteter kommer att extraheras från "roles"-anspråket i JWT.
@@ -109,5 +111,5 @@ public class SecurityConfig {
         //Detta innebär att JwtAuthenticationConverter kommer att använda JwtGrantedAuthoritiesConverter för att konvertera JWT-anspråk till GrantedAuthority-instanser.
         jwtConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtConverter;
-    }*/
+    }
 }
