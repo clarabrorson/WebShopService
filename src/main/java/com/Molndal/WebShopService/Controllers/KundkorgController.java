@@ -1,40 +1,38 @@
 package com.Molndal.WebShopService.Controllers;
 
-import com.Molndal.WebShopService.Models.Artikel;
-import com.Molndal.WebShopService.Models.Kundkorg;
+import com.Molndal.WebShopService.Models.Article;
+import com.Molndal.WebShopService.Models.Cart;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/webshop/kundkorg")
 public class KundkorgController {
 
     @GetMapping("")
-    private ResponseEntity<Kundkorg> getKundkorg() {
-
+    private ResponseEntity<Cart> getKundkorg() {
+        return null;
     }
 
     @PostMapping("")
-    private ResponseEntity<Kundkorg> addNewArtikleToKundkorg(
-            @RequestBody Artikel artikle
+    private ResponseEntity<Cart> addNewArtikleToKundkorg(
+            @RequestBody Article artikle
     ) {
-
+        return null;
     }
 
     @PatchMapping("/{antal}")
-    private ResponseEntity<Kundkorg> updateArtikleCount(
+    private ResponseEntity<Cart> updateArtikleCount(
             @PathVariable int antal,
-            @RequestBody Artikel artikle
+            @RequestBody Article artikle
     ) {
-
+        return null;
     }
 
     @DeleteMapping("")
-    private ResponseEntity<Kundkorg> deleteArtikleFromKundkorg(
-            @RequestBody Artikel artikel
+    private ResponseEntity<Cart> deleteArtikleFromKundkorg(
+            @RequestBody Article article
     ) {
-
+        return null;
     }
 }

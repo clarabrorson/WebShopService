@@ -3,12 +3,12 @@ package com.Molndal.WebShopService.Models;
 import jakarta.persistence.*;
 
 @Entity
-public class Historik {
+public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToOne
     private User user;
 }
