@@ -1,9 +1,11 @@
 package com.Molndal.WebShopService.Models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Set;
 
+@Data
 @Entity
 public class History {
 
@@ -15,4 +17,8 @@ public class History {
     private Set<Article> purchasedArticles;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
+    private int totalCost;
+
+
 }
