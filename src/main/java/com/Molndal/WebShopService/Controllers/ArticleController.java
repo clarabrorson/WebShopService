@@ -12,21 +12,33 @@ public class ArticleController {
 
     @GetMapping("")
     private ResponseEntity<List<Article>> getArtiklar() {
+<<<<<<< HEAD
     return null;
+=======
+
+>>>>>>> fredrik
     }
 
     @GetMapping("/{id}")
     private ResponseEntity<Article> getOneArtikle(
             @PathVariable Long id
     ) {
+<<<<<<< HEAD
         return null;
+=======
+
+>>>>>>> fredrik
     }
 
     @PostMapping("")
     private ResponseEntity<Article> addNewArtikle(
             @RequestBody Article artikle
     ) {
+<<<<<<< HEAD
         return null;
+=======
+
+>>>>>>> fredrik
     }
 
     @PatchMapping("/{id}")
@@ -34,13 +46,21 @@ public class ArticleController {
             @PathVariable Long id,
             @RequestBody Article artikle
     ) {
+<<<<<<< HEAD
         return null;
+=======
+
+>>>>>>> fredrik
     }
 
     @DeleteMapping("/{id}")
     private ResponseEntity<Article> deleteArtikle(
             @PathVariable Long id
     ) {
+<<<<<<< HEAD
         return null;
+=======
+
+>>>>>>> fredrik
     }
 }
