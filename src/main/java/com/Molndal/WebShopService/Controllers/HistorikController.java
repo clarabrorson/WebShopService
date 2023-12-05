@@ -1,6 +1,6 @@
 package com.Molndal.WebShopService.Controllers;
 
-import com.Molndal.WebShopService.Models.Historik;
+import com.Molndal.WebShopService.Models.History;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,21 +11,21 @@ import java.util.List;
 public class HistorikController {
 
     @GetMapping("")
-    private ResponseEntity<List<Historik>> getAllHistorik() {
-
+    private ResponseEntity<List<History>> getAllHistorik() {
+        return null;
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<List<Historik>> getOneUserHistorik(
+    private ResponseEntity<List<History>> getOneUserHistorik(
             @PathVariable Long userId
     ) {
-
+        return null;
     }
 
     @PostMapping("")
-    private ResponseEntity<Historik> addNewHistorik(
-            @RequestBody Historik artikle
+    private ResponseEntity<History> addNewHistorik(
+            @RequestBody History artikle
     ) {
-
+        return null;
     }
 }

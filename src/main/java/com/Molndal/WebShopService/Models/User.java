@@ -32,6 +32,12 @@ public class User implements UserDetails {
     )
     private Set<Role> authorities;
 
+    @OneToMany(mappedBy = "user")
+    private Set<History> histories;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

@@ -15,13 +15,13 @@ public class AuthController {
     private ResponseEntity registerUser(
             @RequestBody User user
     ) {
-
+        return null;
     }
 
     @PostMapping("/login")
     private ResponseEntity<User> loginUser(
             @RequestBody User user
     ) {
-
+        return null;
     }
 }
