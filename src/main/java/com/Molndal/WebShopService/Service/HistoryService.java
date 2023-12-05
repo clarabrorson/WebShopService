@@ -13,7 +13,7 @@ import java.util.Set;
 @Service
 public class HistoryService {
 
-    @Autowired
+    /*@Autowired
     private HistoryRepository historyRepository;
     @Autowired
     private UserService userService;
@@ -45,5 +45,5 @@ public class HistoryService {
                 .map(articles::getCost)
                 .reduce(0, Integer::sum);
     }
-
+*/
 }
