@@ -1,5 +1,6 @@
 package com.Molndal.WebShopService.Controllers;
 
+import com.Molndal.WebShopService.Models.RegistrationPayload;
 import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,16 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+
     @PostMapping("/register")
-    private ResponseEntity registerUser(@RequestBody User user) {
+    public ResponseEntity<User> register (@RequestBody RegistrationPayload payload) {
 
         return authService.register(payload.getUsername(), payload.getPassword());
     }
 
     @PostMapping("/login")
-    private ResponseEntity<User> loginUser(@RequestBody User user) {
+    public ResponseEntity<LoginResponse> login (@RequestBody RegistrationPayload payload) {
 
         return authService.login(payload.getUsername(), payload.getPassword());
-
     }
 }
