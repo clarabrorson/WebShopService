@@ -12,11 +12,9 @@ public class Article {
     private int cost;
     private String description;
 
-<<<<<<< HEAD
-=======
     @ManyToOne
     @JoinColumn(name = "history_id")
     private History history;
 
->>>>>>> fredrik
+
 }
