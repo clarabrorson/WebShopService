@@ -12,16 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @PostMapping("/register")
-    private ResponseEntity registerUser(
-            @RequestBody User user
-    ) {
+    private ResponseEntity registerUser(@RequestBody User user) {
 
     }
 
     @PostMapping("/login")
-    private ResponseEntity<User> loginUser(
-            @RequestBody User user
-    ) {
+    private ResponseEntity<User> loginUser(@RequestBody User user) {
 
     }
 }
