@@ -1,11 +1,9 @@
 package com.Molndal.WebShopService.Controllers;
 
-import com.Molndal.WebShopService.Models.Artikel;
+import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Models.Kundkorg;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/webshop/kundkorg")
@@ -18,7 +16,7 @@ public class KundkorgController {
 
     @PostMapping("")
     private ResponseEntity<Kundkorg> addNewArtikleToKundkorg(
-            @RequestBody Artikel artikle
+            @RequestBody Article artikle
     ) {
 
     }
@@ -26,14 +24,14 @@ public class KundkorgController {
     @PatchMapping("/{antal}")
     private ResponseEntity<Kundkorg> updateArtikleCount(
             @PathVariable int antal,
-            @RequestBody Artikel artikle
+            @RequestBody Article artikle
     ) {
 
     }
 
     @DeleteMapping("")
     private ResponseEntity<Kundkorg> deleteArtikleFromKundkorg(
-            @RequestBody Artikel artikel
+            @RequestBody Article artikel
     ) {
 
     }

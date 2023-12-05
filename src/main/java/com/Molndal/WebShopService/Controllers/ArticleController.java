@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/webshop/artiklar")
-public class ArtiklarController {
+public class ArticleController {
 
     @GetMapping("")
     private ResponseEntity<List<Article>> getArtiklar() {

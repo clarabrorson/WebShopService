@@ -34,13 +34,13 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 
 ## Dependencies:
 
-Spring Web
-Lombok
-Spring Data JPA
-MySQL Driver
-Spring Security
-OAuth2 Client
-Spring Boot DevTools
+- Spring Web
+- Lombok
+- Spring Data JPA
+- MySQL Driver
+- Spring Security
+- OAuth2 Client
+- Spring Boot DevTools
 
 
 ## Credits
