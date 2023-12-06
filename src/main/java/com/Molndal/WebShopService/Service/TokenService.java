@@ -8,17 +8,22 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
-
 import java.time.Instant;
 import java.util.stream.Collectors;
+
+/**
+ * @author Clara Brorson
+ * This class is used to generate a jwt token for the user and admin.
+ * The token is used to authenticate the user when accessing the API.
+ * Depending on the role of the user, the user will have access to different parts of the API.
+ *
+ */
 
 @Service
 public class TokenService {
 
-
     @Autowired
     private JwtEncoder jwtEncoder;
-
     @Autowired
     private JwtDecoder jwtDecoder;
 

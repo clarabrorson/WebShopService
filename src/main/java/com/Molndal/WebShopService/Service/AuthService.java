@@ -14,11 +14,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-
-
 import java.util.HashSet;
 import java.util.Set;
+
+/**
+ * @author Clara Brorson
+ * This class is a service for the authentication of the user and admin.
+ * It has two methods, one for registering a user and one for logging in a user/admin.
+ * It also has a method for encrypting the password.
+ */
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +35,6 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private TokenService tokenService;
 
