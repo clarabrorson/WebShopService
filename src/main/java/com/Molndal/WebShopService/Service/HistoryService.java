@@ -42,8 +42,9 @@ public class HistoryService {
 
 //    private int calculateTotalCost(Set<Article> articles) {
 //        return articles.stream()
-//                .map(articles::getCost)
+//                .map(Article::getCost)  // Använd en lokal variabel för att specificera datatypen
 //                .reduce(0, Integer::sum);
 //    }
+
 
 }
