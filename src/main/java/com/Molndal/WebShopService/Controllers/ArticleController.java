@@ -1,18 +1,24 @@
 package com.Molndal.WebShopService.Controllers;
 
 import com.Molndal.WebShopService.Models.Article;
+import com.Molndal.WebShopService.Service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/webshop/articles")
+@RequestMapping("/webshop/article")
+@CrossOrigin("*")
 public class ArticleController {
+
+    @Autowired
+    private ArticleService articleService;
 
     @GetMapping("")
     private ResponseEntity<List<Article>> getArticles() {
-    return null;
+    return ResponseEntity.ok(articleService.getAllArticles());
 
     }
 
@@ -24,10 +30,10 @@ public class ArticleController {
     }
 
     @PostMapping("")
-    private ResponseEntity<Article> addNewArticle(
+    private ResponseEntity<Article> addArticle(
             @RequestBody Article article
     ) {
-        return null;
+        return ResponseEntity.ok(articleService.addNewArticle(article));
     }
 
     @PatchMapping("/{id}")
