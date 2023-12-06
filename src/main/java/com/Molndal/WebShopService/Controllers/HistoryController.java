@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/webshop/historik")
-public class HistorikController {
+public class HistoryController {
     @Autowired
     private HistoryService historyService;
 
