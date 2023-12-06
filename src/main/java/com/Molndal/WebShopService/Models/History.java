@@ -15,6 +15,7 @@ public class History {
 
     @OneToMany(mappedBy = "history", cascade = CascadeType.ALL)
     private Set<Article> purchasedArticles;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
