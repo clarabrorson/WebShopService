@@ -56,9 +56,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-        //Alla inkommande förfrågningar till "/auth/**" är tillåtna utan autentisering.
-        //Alla förfrågningar till "/admin/**" måste vara autentiserade med rollen "ADMIN".
-        //Alla förfrågningar till "/user/**" måste vara autentiserade med rollen "ADMIN" eller "USER".
+        //Alla förfrågningar till "/webshop/auth/**" är tillåtna utan autentisering.
+        //Alla förfrågningar till "/webshop/admin/**" måste vara autentiserade med rollen "ADMIN".
+        //Alla förfrågningar till "/webshop/user/**" måste vara autentiserade med rollen "ADMIN" eller "USER".
         //Alla andra förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/webshop/auth/**").permitAll();
