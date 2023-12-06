@@ -9,12 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -41,9 +40,19 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
-    public User(long l, String username, String encryptedPassword, Set<Role> authorities) {
+    //Lade till konstruktor för att CommandLineRunner skulle funka
+    public User() {
+        super();
+        this.authorities = new HashSet<Role>();
     }
 
+    //Lade till konstruktor för att CommandLineRunner skulle funka
+    public User(Long id, String username, String password, Set<Role> authorities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

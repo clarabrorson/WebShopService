@@ -61,9 +61,9 @@ public class SecurityConfig {
         //Alla förfrågningar till "/user/**" måste vara autentiserade med rollen "ADMIN" eller "USER".
         //Alla andra förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/auth/**").permitAll();
-                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
-                    auth.requestMatchers("/user/**").hasAnyRole("ADMIN", "USER");
+                    auth.requestMatchers("/webshop/auth/**").permitAll();
+                    auth.requestMatchers("/webshop/admin/**").hasRole("ADMIN");
+                    auth.requestMatchers("/webshop/user/**").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 });
         //OAuth2 Resource Server stöd aktiveras och konfigureras för att använda JWTs.
