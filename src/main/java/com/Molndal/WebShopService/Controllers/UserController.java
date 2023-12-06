@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/getUser") // hämtar användare
     public ResponseEntity<User> getUser() {
         // Hämta inloggad användares autentiseringsinformation
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
