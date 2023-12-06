@@ -18,7 +18,7 @@ import java.util.Set;
  * @Author Jafar Hussein
  */
 
-@Table(name="roles")
+@Table(name="users")
 @Entity
 @Data
 public class User implements UserDetails {
