@@ -3,32 +3,38 @@ package com.Molndal.WebShopService.Controllers;
 import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/webshop/article")
+@RequestMapping("/webshop/articles")
 @CrossOrigin("*")
 public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
 
+
+    //ALla ska kunna detta, även de som inte är inloggade
     @GetMapping("")
     private ResponseEntity<List<Article>> getArticles() {
     return ResponseEntity.ok(articleService.getAllArticles());
 
     }
 
+    //Vem ska kunna detta?
     @GetMapping("/{id}")
     private ResponseEntity<Article> getOneArticle(
             @PathVariable Long id
     ) {
-        return null;
+        return ResponseEntity.ok(articleService.getOneArticle(id));
     }
 
+    //Endast admin ska kunna detta
     @PostMapping("")
     private ResponseEntity<Article> addArticle(
             @RequestBody Article article
@@ -36,6 +42,7 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.addNewArticle(article));
     }
 
+    //Endast admin ska kunna detta
     @PatchMapping("/{id}")
     private ResponseEntity<Article> updateArticle(
             @PathVariable Long id,
@@ -44,10 +51,18 @@ public class ArticleController {
         return null;
     }
 
+    //Endast admin ska kunna detta
+    //try-catchen verkar inte fungera så bra...Den returnerar  "Artikeln har tagits bort framgångsrikt" oavsett om id:t finns i db eller inte.
     @DeleteMapping("/{id}")
-    private ResponseEntity<Article> deleteArticle(
-            @PathVariable Long id
-    ) {
-        return null;
+    private ResponseEntity<String> deleteArticle(
+        @PathVariable Long id
+) {
+    try {
+        articleService.deleteOneArticle(id);
+        return ResponseEntity.ok("Artikeln har tagits bort framgångsrikt");
+    } catch (EmptyResultDataAccessException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ingen artikel hittades med det angivna ID:et");
     }
 }
+}
+

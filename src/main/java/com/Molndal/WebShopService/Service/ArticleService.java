@@ -18,7 +18,15 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
+    public Article getOneArticle(Long id){
+        return articleRepository.findArticleById(id).get();
+    }
+
     public Article addNewArticle(Article article) {
         return articleRepository.save(article);
+    }
+
+    public void deleteOneArticle(Long id) {
+        articleRepository.deleteById(id);
     }
 }
