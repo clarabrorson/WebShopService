@@ -13,7 +13,7 @@ import java.util.Set;
 @Service
 public class HistoryService {
 
-    /*@Autowired
+    @Autowired
     private HistoryRepository historyRepository;
     @Autowired
     private UserService userService;
@@ -29,21 +29,21 @@ public class HistoryService {
         User currentUser = userService.getCurrentUser();
         return historyRepository.findByUser(currentUser);
     }
-    public History articlePurchase(Set<Article> articles){
-        User currentUser = userService.getCurrentUser();
-        int totalCost = calculateTotalCost(articles);
+//    public History articlePurchase(Set<Article> articles){
+//        User currentUser = userService.getCurrentUser();
+//        int totalCost = calculateTotalCost(articles);
+//
+//        History history = new History();
+//        history.setUser(currentUser);
+//        history.setPurchasedArticles(articles);
+//        history.setTotalCost(totalCost);
+//        return historyRepository.save(history);
+//    }
 
-        History history = new History();
-        history.setUser(currentUser);
-        history.setPurchasedArticles(articles);
-        history.setTotalCost(totalCost);
-        return historyRepository.save(history);
-    }
+//    private int calculateTotalCost(Set<Article> articles) {
+//        return articles.stream()
+//                .map(articles::getCost)
+//                .reduce(0, Integer::sum);
+//    }
 
-    private int calculateTotalCost(Set<Article> articles) {
-        return articles.stream()
-                .map(articles::getCost)
-                .reduce(0, Integer::sum);
-    }
-*/
 }
