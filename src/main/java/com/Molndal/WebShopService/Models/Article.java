@@ -1,7 +1,9 @@
 package com.Molndal.WebShopService.Models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class Article {
 
