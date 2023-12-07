@@ -56,14 +56,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-        //Alla förfrågningar till "/webshop/auth/**" är tillåtna utan autentisering.
-        //Alla förfrågningar till "/webshop/admin/**" måste vara autentiserade med rollen "ADMIN".
-        //Alla förfrågningar till "/webshop/user/**" måste vara autentiserade med rollen "ADMIN" eller "USER".
-        //Alla andra förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.
                 .authorizeHttpRequests(auth -> {
+                    //Dessa förfrågningar är tillåtna utan autentisering.
                     auth.requestMatchers("/webshop/auth/**").permitAll();
-                    auth.requestMatchers("/webshop/admin/**").hasRole("ADMIN");
+                    auth.requestMatchers("/webshop/articles").permitAll();
+
+                    //Dessa förfrågningar måste vara autentiserade med "USER" eller "ADMIN".
+                    auth.requestMatchers("/webshop/articles/").hasAnyRole("ADMIN", "USER");
                     auth.requestMatchers("/webshop/user/**").hasAnyRole("ADMIN", "USER");
+
+                    //Dessa förfrågningar måste vara autentiserade med rollen "ADMIN".
+                    auth.requestMatchers("/webshop/articles/admin/**").hasRole("ADMIN");
+
+                    //Alla andra förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.
                     auth.anyRequest().authenticated();
                 });
         //OAuth2 Resource Server stöd aktiveras och konfigureras för att använda JWTs.
