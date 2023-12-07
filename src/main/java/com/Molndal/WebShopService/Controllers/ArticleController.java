@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class ArticleController {
     }
 
     //Endast admin ska kunna detta
-    @PostMapping("")
+    @PostMapping("/admin")
     private ResponseEntity<Article> addArticle(
             @RequestBody Article article
     ) {
@@ -48,7 +49,7 @@ public class ArticleController {
 
     //Endast admin ska kunna detta
     //Bör lägga till någon slags try-catch här också
-    @PatchMapping("/{id}")
+    @PatchMapping("/admin/{id}")
     private ResponseEntity<Article> updateArticle(
             @PathVariable Long id,
             @RequestBody Article articleDetails
@@ -62,7 +63,7 @@ public class ArticleController {
 
     //Endast admin ska kunna detta
     //try-catchen verkar inte fungera så bra...Den returnerar "Artikeln har tagits bort framgångsrikt" oavsett om id:t finns i db eller inte.
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     private ResponseEntity<String> deleteArticle(
         @PathVariable Long id
 ) {
