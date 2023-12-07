@@ -16,7 +16,7 @@ public class HistoryController {
     @Autowired
     private HistoryService historyService;
 
-    @GetMapping("/getAll")
+    @GetMapping("")
     private ResponseEntity<List<History>> getAllHistorik() {
         List<History> allHistory = historyService.getAllHistory();
         return ResponseEntity.ok(allHistory);

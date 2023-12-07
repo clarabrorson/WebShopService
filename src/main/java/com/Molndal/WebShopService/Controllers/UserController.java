@@ -19,18 +19,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getUser") // hämtar användare
+    @GetMapping("") // hämtar användare
     public ResponseEntity<User> getUser() {
         // Hämta inloggad användares autentiseringsinformation
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
         // Hämta användaren från databasen baserat på inloggat användarnamn
         User user = (User) userService.loadUserByUsername(username);
-
         // Rensa lösenordet innan du skickar det som svar
         user.setPassword(null);
-
         // Skicka tillbaka användaren utan lösenordet som respons
         return ResponseEntity.ok(user);
     }
