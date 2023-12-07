@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/webshop/users")
+@RequestMapping("/webshop/user")
 @CrossOrigin(origins = "*")
 public class UserController {
     @Autowired

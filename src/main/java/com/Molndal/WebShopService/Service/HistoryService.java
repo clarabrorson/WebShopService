@@ -4,10 +4,13 @@ import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Models.History;
 import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Repository.HistoryRepository;
+import com.Molndal.WebShopService.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -29,16 +32,25 @@ public class HistoryService {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private UserRepository userRepository;
 
     // Hämta alla historikposter
     public List<History> getAllHistory(){
-        return historyRepository.findAll();
+        User currentUser = userService.getCurrentUser();
+        return historyRepository.findByUser(currentUser);
     }
 
     // Hämta historik för den aktuella användaren
-    public List<History> getUserHistory(){
-        User currentUser = userService.getCurrentUser();
-        return historyRepository.findByUser(currentUser);
+    public List<History> getUserHistory(Long userId){
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return historyRepository.findByUser(user);
+        } else {
+            // Hantera fallet när användaren inte finns
+            return Collections.emptyList();
+        }
     }
 
     // Registrera ett köp i användarens historik
@@ -64,6 +76,7 @@ public class HistoryService {
     }
 
 
+
     private int calculateTotalCost(Set<Article> articles) {
         return articles.stream()
                 .map(articles::getCost)
@@ -75,3 +88,9 @@ public class HistoryService {
 
 
 }
+
+
+
+    }
+
+
