@@ -57,14 +57,17 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    //Alla förfrågningar till "/webshop/auth/**" är tillåtna utan autentisering.
+                    //Dessa förfrågningar är tillåtna utan autentisering.
                     auth.requestMatchers("/webshop/auth/**").permitAll();
-                    //Alla förfrågningar till "/webshop/articles" är tillåtna utan autentisering.
                     auth.requestMatchers("/webshop/articles").permitAll();
-                    //Alla förfrågningar till "/webshop/articles/admin/**" måste vara autentiserade med rollen "ADMIN".
-                    auth.requestMatchers("/webshop/articles/admin/**").hasRole("ADMIN");
-                    //Alla förfrågningar till "/webshop/user/**" måste vara autentiserade med rollen "ADMIN" eller "USER".
+
+                    //Dessa förfrågningar måste vara autentiserade med "USER" eller "ADMIN".
+                    auth.requestMatchers("/webshop/articles/").hasAnyRole("ADMIN", "USER");
                     auth.requestMatchers("/webshop/user/**").hasAnyRole("ADMIN", "USER");
+
+                    //Dessa förfrågningar måste vara autentiserade med rollen "ADMIN".
+                    auth.requestMatchers("/webshop/articles/admin/**").hasRole("ADMIN");
+
                     //Alla andra förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.
                     auth.anyRequest().authenticated();
                 });
