@@ -17,31 +17,31 @@ public class CartController {
     private CartService cartService;
 
     @GetMapping("")
-    private ResponseEntity<Cart> getCart() {
+    private Cart getCart() {
         return cartService.getCarts();
 
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Cart> getCartById(@PathVariable Long id) {
+    private Cart getCartById(@PathVariable Long id) {
         return cartService.getCartById(id);
 
     }
 
-    @PostMapping("/{id}")
-    private ResponseEntity<Cart> addArticleToCart(@RequestBody List<Article> article) {
+    @PostMapping("")
+    private Cart addArticleToCart(@RequestBody List<Article> article) {
         return cartService.addArticleToCart(article);
 
     }
 
     @PatchMapping("/{quantity}")
-    private ResponseEntity<Cart> updateArticleCount(@PathVariable int quantity, @RequestBody Article article) {
+    private Cart updateArticleCount(@PathVariable int quantity, @RequestBody Article article) {
         return cartService.updateArticleCount(quantity, article);
 
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Cart> deleteArticleFromCart(@RequestBody Article article) {
+    private Cart deleteArticleFromCart(@RequestBody Article article) {
         return cartService.deleteArticleFromCart(article);
 
     }

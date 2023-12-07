@@ -13,8 +13,9 @@ import java.util.Set;
 @RestController
 @RequestMapping("/webshop/history")
 public class HistoryController {
-    @Autowired
-    private HistoryService historyService;
+/*
+  @Autowired
+   private HistoryService historyService;
 
     @GetMapping("/getAll")
     private ResponseEntity<List<History>> getAllHistorik() {
@@ -36,4 +37,6 @@ public class HistoryController {
         History newHistory = historyService.articlePurchase(articles);
         return ResponseEntity.ok(newHistory);
     }
+    */
+
 }

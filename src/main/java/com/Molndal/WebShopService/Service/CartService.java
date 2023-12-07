@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,30 +17,34 @@ public class CartService {
     @Autowired private CartRepository cartRepository;
 
 
-    public ResponseEntity<Cart> getCarts() {
-        return ResponseEntity.ok(cartRepository.findAll().get(0));
+    public Cart getCarts() {
+        return cartRepository.findById(1L).orElse(null);
     }
 
-    public ResponseEntity<Cart> getCartById(Long id) {
-        return ResponseEntity.ok(cartRepository.findCartById(id).get());
+    public Cart getCartById(Long id) {
+        return cartRepository.findById(id).orElse(null);
     }
 
 
-    public ResponseEntity<Cart> addArticleToCart(List<Article> article) {
-        Cart cart = cartRepository.findAll().get(0);
+    public Cart addArticleToCart(List<Article> article) {
+        Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
+        Set<Article> articles = cart.getArticles();
+        articles.add((Article) article);
+        cart.setArticles(articles);
+        return cartRepository.save(cart);
+    }
+
+    public Cart updateArticleCount(int quantity, Article article) {
+        Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
         cart.setArticles((Set<Article>) article);
-        return ResponseEntity.ok(cartRepository.save(cart));
+        return cartRepository.save(cart);
     }
 
-    public ResponseEntity<Cart> updateArticleCount(int quantity, Article article) {
-        Cart cart = cartRepository.findAll().get(0);
-        cart.setArticles((Set<Article>) article);
-        return ResponseEntity.ok(cartRepository.save(cart));
-    }
-
-    public ResponseEntity<Cart> deleteArticleFromCart(Article article) {
-        Cart cart = cartRepository.findAll().get(0);
-        cart.setArticles((Set<Article>) article);
-        return ResponseEntity.ok(cartRepository.save(cart));
+    public Cart deleteArticleFromCart(Article article) {
+        Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
+        Set<Article> articles = cart.getArticles();
+        articles.remove(article);
+        cart.setArticles(articles);
+        return cartRepository.save(cart);
     }
 }
