@@ -16,6 +16,7 @@ import java.util.Set;
 @Service
 public class HistoryService {
 
+
     @Autowired
     private HistoryRepository historyRepository;
     @Autowired
@@ -66,7 +67,10 @@ public class HistoryService {
                 .reduce(0, Integer::sum);
     }
 
+}
 
 
-    }
+
+
+
 

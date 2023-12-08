@@ -26,7 +26,7 @@ public class Cart {
 
     @ManyToMany // Many-to-Many-relation med Article
     @JoinTable(
-            name = "cart_article",
+            name = "cart_article_junction",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "article_id")
     )

@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * @author Clara Brorson
+ * This class is a model for the role of the user.
+ * It implements GrantedAuthority from Spring Security.
+ */
 @Entity
 @Data
 @Table(name="roles")

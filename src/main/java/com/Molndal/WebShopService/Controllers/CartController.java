@@ -14,28 +14,35 @@ import java.util.List;
 public class CartController {
 
     @Autowired
-    private CartService Service;
+    private CartService cartService;
 
-    /*@GetMapping("/myCart")
-    private ResponseEntity<Cart> getCart() {
-        return Service.getCart();
-
-    }
-
-    @PostMapping("/addArticle")
-    private ResponseEntity<Cart> addArticleToCart(@RequestBody List<Article> article) {
-        return Service.addArticleToCart(article);
+    @GetMapping("")
+    private Cart getCart() {
+        return cartService.getCarts();
 
     }
 
-    @PatchMapping("/update/{quantity}")
-    private ResponseEntity<Cart> updateArticleCount(@PathVariable int quantity, @RequestBody Article article) {
-        return Service.updateArticleCount(quantity, article);
+    @GetMapping("/{id}")
+    private Cart getCartById(@PathVariable Long id) {
+        return cartService.getCartById(id);
 
     }
 
-    @DeleteMapping("/deleteArticle/{id}")
-    private ResponseEntity<Cart> deleteArticleFromCart(@RequestBody Article article) {
+    @PostMapping("")
+    private Cart addArticleToCart(@RequestBody List<Article> article) {
+        return cartService.addArticleToCart(article);
 
-    }*/
+    }
+
+    @PatchMapping("/{quantity}")
+    private Cart updateArticleCount(@PathVariable int quantity, @RequestBody Article article) {
+        return cartService.updateArticleCount(quantity, article);
+
+    }
+
+    @DeleteMapping("/{id}")
+    private Cart deleteArticleFromCart(@RequestBody Article article) {
+        return cartService.deleteArticleFromCart(article);
+
+    }
 }

@@ -8,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Clara Brorson
+ * This class is a controller for the authentication of the user.
+ * It has two endpoints, one for registering a user and one for logging in a user.
+ */
 @RestController
 @RequestMapping("/webshop/auth")
 public class AuthController {
@@ -25,7 +30,6 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@RequestBody RegistrationPayload payload) {
 
         return authService.login(payload.getUsername(), payload.getPassword());
-
     }
 
 }
