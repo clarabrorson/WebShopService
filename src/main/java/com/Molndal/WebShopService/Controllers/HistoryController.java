@@ -13,7 +13,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/webshop/history")
 public class HistoryController {
-/*
+
   @Autowired
    private HistoryService historyService;
 
@@ -37,6 +37,6 @@ public class HistoryController {
         History newHistory = historyService.articlePurchase(articles);
         return ResponseEntity.ok(newHistory);
     }
-    */
+
 
 }
