@@ -2,6 +2,8 @@ package com.Molndal.WebShopService.Service;
 
 import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Models.Cart;
+import com.Molndal.WebShopService.Models.User;
+import com.Molndal.WebShopService.Repository.ArticleRepository;
 import com.Molndal.WebShopService.Repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,6 @@ import java.util.Set;
 public class CartService {
 
     @Autowired private CartRepository cartRepository;
-
 
     public Cart getCarts() {
         return cartRepository.findById(1L).orElse(null);
@@ -46,5 +47,14 @@ public class CartService {
         articles.remove(article);
         cart.setArticles(articles);
         return cartRepository.save(cart);
+    }
+
+    public void addArticleToCartFromDB(Long id, User currentUser) {
+        Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
+        Set<Article> articles = cart.getArticles();
+        Article article = currentUser.getArticles().stream().filter(a -> a.getId().equals(id)).findFirst().orElse(null);
+        articles.add(article);
+        cart.setArticles(articles);
+        cartRepository.save(cart);
     }
 }
