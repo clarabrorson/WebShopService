@@ -17,15 +17,7 @@ import java.util.Set;
 public class HistoryService {
 
 
-/*
     @Autowired
-
-
-    /*@Autowired
-
-
-    @Autowired
-
     private HistoryRepository historyRepository;
     @Autowired
     private UserService userService;
@@ -74,18 +66,6 @@ public class HistoryService {
                 .map(Article::getCost)
                 .reduce(0, Integer::sum);
     }
-
-
-
-    private int calculateTotalCost(Set<Article> articles) {
-        return articles.stream()
-                .map(articles::getCost)
-                .reduce(0, Integer::sum);
-    }
-
-
- */
-
 
 }
 
