@@ -14,29 +14,29 @@ import java.util.Set;
 @RequestMapping("/webshop/history")
 public class HistoryController {
 
-  @Autowired
-   private HistoryService historyService;
-
-    @GetMapping("")
-    private ResponseEntity<List<History>> getAllHistorik() {
-        List<History> allHistory = historyService.getAllHistory();
-        return ResponseEntity.ok(allHistory);
-    }
-    @GetMapping("/{id}")
-    private ResponseEntity<List<History>> getOneUserHistory(
-            @PathVariable Long id
-    ) {
-        List<History> userHistory = historyService.getUserHistory(id);
-        return ResponseEntity.ok(userHistory);
-    }
-
-    @PostMapping("/add")
-    private ResponseEntity<History> addNewHistorik(
-            @RequestBody Set<Article> articles
-    ) {
-        History newHistory = historyService.articlePurchase(articles);
-        return ResponseEntity.ok(newHistory);
-    }
+//  @Autowired
+//   private HistoryService historyService;
+//
+//    @GetMapping("")
+//    private ResponseEntity<List<History>> getAllHistorik() {
+//        List<History> allHistory = historyService.getAllHistory();
+//        return ResponseEntity.ok(allHistory);
+//    }
+//    @GetMapping("/{id}")
+//    private ResponseEntity<List<History>> getOneUserHistory(
+//            @PathVariable Long id
+//    ) {
+//        List<History> userHistory = historyService.getUserHistory(id);
+//        return ResponseEntity.ok(userHistory);
+//    }
+//
+//    @PostMapping("/add")
+//    private ResponseEntity<History> addNewHistorik(
+//            @RequestBody Set<Article> articles
+//    ) {
+//        History newHistory = historyService.articlePurchase(articles);
+//        return ResponseEntity.ok(newHistory);
+//    }
 
 
 }

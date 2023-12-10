@@ -2,7 +2,9 @@ package com.Molndal.WebShopService.Controllers;
 
 import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Models.Cart;
+import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Service.CartService;
+import com.Molndal.WebShopService.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("")
     private Cart getCart() {
@@ -28,10 +32,13 @@ public class CartController {
 
     }
 
-    @PostMapping("")
-    private Cart addArticleToCart(@RequestBody List<Article> article) {
-        return cartService.addArticleToCart(article);
+    @PostMapping("/add/{id}")
+    private Cart addArticleToCart(@PathVariable Long id) {
+        User currentUser = userService.getCurrentUser();
+        cartService.addArticleToCartFromDB(id, currentUser);
 
+        // Ensure you fetch the updated cart associated with the current user
+        return cartService.getCartForCurrentUser();
     }
 
     @PatchMapping("/{quantity}")
