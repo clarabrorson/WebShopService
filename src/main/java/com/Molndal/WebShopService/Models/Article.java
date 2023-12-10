@@ -19,15 +19,8 @@ public class Article {
     private int cost;
     private String description;
 
-    //La till quantity variabel för att kunna uppdatera antal i cart
-    private int quantity;
-
     @ManyToOne
     @JoinColumn(name = "history_id")
     private History history;
 
-    //Metod för att uppdatera antal i cart. Behövs för CartService och för att kunna uppdatera antal i databasen
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }

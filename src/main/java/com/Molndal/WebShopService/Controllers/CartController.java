@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/webshop/cart")
@@ -52,9 +51,11 @@ public class CartController {
         return ResponseEntity.ok(updatedCart);
     }
 
-    @DeleteMapping("/{id}")
-    private Cart deleteArticleFromCart(@RequestBody Article article) {
-        return cartService.deleteArticleFromCart(article);
-
+    @DeleteMapping("/{cartId}/articles/{articleId}")
+    public ResponseEntity<Cart> deleteArticleFromCart(
+            @PathVariable Long cartId,
+            @PathVariable Long articleId) {
+        Cart updatedCart = cartService.deleteArticleFromCart(cartId, articleId);
+        return ResponseEntity.ok(updatedCart);
     }
 }
