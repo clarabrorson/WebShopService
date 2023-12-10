@@ -49,9 +49,11 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    //Använder och artikel bör finnas i databasen
     public void addArticleToCartFromDB(Long id, User currentUser) {
         Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
         Set<Article> articles = cart.getArticles();
+        //Sök efter artikel i databasen. Om den inte finns, returnera null. Stream() används för att kunna filtrera på id.
         Article article = currentUser.getArticles().stream().filter(a -> a.getId().equals(id)).findFirst().orElse(null);
         articles.add(article);
         cart.setArticles(articles);
