@@ -1,6 +1,5 @@
 package com.Molndal.WebShopService.Controllers;
 
-import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Models.Cart;
 import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Service.CartService;
@@ -16,20 +15,17 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
-
     @Autowired
     private UserService userService;
 
     @GetMapping("")
     private Cart getCart() {
         return cartService.getCarts();
-
     }
 
     @GetMapping("/{id}")
     private Cart getCartById(@PathVariable Long id) {
         return cartService.getCartById(id);
-
     }
 
     @PostMapping("/add/{id}")

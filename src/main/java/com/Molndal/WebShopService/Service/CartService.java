@@ -27,16 +27,6 @@ public class CartService {
         return cartRepository.findById(id).orElse(null);
     }
 
-    //Ta bort metod om addArticleToCartFromDB fungerar
-    public Cart addArticleToCart(List<Article> article) {
-        Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
-        Set<Article> articles = cart.getArticles();
-        articles.add((Article) article);
-        cart.setArticles(articles);
-        return cartRepository.save(cart);
-    }
-
-
     //Användare och artikel bör finnas i databasen
     public void addArticleToCartFromDB(Long id, User currentUser) {
         Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
