@@ -18,6 +18,7 @@ public class CartService {
 
     @Autowired private CartRepository cartRepository;
 
+    //Admin bör ha möjlighet att se alla carts
     public Cart getCarts() {
         return cartRepository.findById(1L).orElse(null);
     }
@@ -26,7 +27,7 @@ public class CartService {
         return cartRepository.findById(id).orElse(null);
     }
 
-
+    //Ta bort metod om addArticleToCartFromDB fungerar
     public Cart addArticleToCart(List<Article> article) {
         Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
         Set<Article> articles = cart.getArticles();
@@ -35,9 +36,15 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-    public Cart updateArticleCount(int quantity, Article article) {
-        Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
-        cart.setArticles((Set<Article>) article);
+
+    public Cart updateArticleCount(Long cartId, Long articleId, int quantity) {
+        Cart cart = cartRepository.findById(cartId).orElseGet(Cart::new);
+        Set<Article> articles = cart.getArticles();
+        Article article = articles.stream().filter(a -> a.getId().equals(articleId)).findFirst().orElse(null);
+        assert article != null;
+        article.setQuantity(quantity);
+        articles.add(article);
+        cart.setArticles(articles);
         return cartRepository.save(cart);
     }
 
@@ -49,7 +56,7 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-    //Använder och artikel bör finnas i databasen
+    //Användare och artikel bör finnas i databasen
     public void addArticleToCartFromDB(Long id, User currentUser) {
         Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
         Set<Article> articles = cart.getArticles();

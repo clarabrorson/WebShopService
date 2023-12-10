@@ -40,10 +40,16 @@ public class CartController {
         return cartService.getCarts();
 
     }
-    @PatchMapping("/{quantity}")
-    private Cart updateArticleCount(@PathVariable int quantity, @RequestBody Article article) {
-        return cartService.updateArticleCount(quantity, article);
-
+    //@RequestParam int quantity hämtar quantity från URL
+    //Exempel: http://localhost:8080/webshop/cart/1/articles/1?quantity=5
+    //quantity=5 är en parameter
+    @PatchMapping("/{cartId}/articles/{articleId}")
+    public ResponseEntity<Cart> updateArticleCount(
+            @PathVariable Long cartId,
+            @PathVariable Long articleId,
+            @RequestParam int quantity) {
+        Cart updatedCart = cartService.updateArticleCount(cartId, articleId, quantity);
+        return ResponseEntity.ok(updatedCart);
     }
 
     @DeleteMapping("/{id}")
