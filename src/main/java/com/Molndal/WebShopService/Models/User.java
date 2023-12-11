@@ -1,15 +1,19 @@
 package com.Molndal.WebShopService.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 /**
  * Representerar en användare i webbshop-applikationen.
@@ -50,12 +54,13 @@ public class User implements UserDetails {
      * Kundvagn kopplad till användaren.
      */
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Cart cart;
 
     /**
      * Standardkonstruktor nödvändig för CommandLineRunner-funktionalitet.
      * Initialiserar auktoritetsuppsättningen som en tom HashSet.
-            */
+     */
     public User() {
         super();
         this.authorities = new HashSet<Role>();
@@ -120,5 +125,12 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    @JsonIgnore
+    public Set<Article> getArticles() {
+        return this.cart != null ? this.cart.getArticles() : new HashSet<>();
+    }
+    public Long getCartId() {
+        return this.cart != null ? this.cart.getId() : null;
     }
 }
