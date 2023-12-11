@@ -46,26 +46,26 @@ public class HistoryService {
     }
 
     // Registrera ett köp i användarens historik
-    public History articlePurchase(Set<Article> articles){
-        User currentUser = userService.getCurrentUser();
-        int totalCost = calculateTotalCost(articles);
-
-        // Skapa en ny historikpost för köpet
-        History history = new History();
-        history.setUser(currentUser);
-        history.setPurchasedArticles(articles);
-        history.setTotalCost(totalCost);
-
-        // Spara historikposten i lagringsstället
-        return historyRepository.save(history);
-    }
-
-    // Beräkna den totala kostnaden för en uppsättning artiklar
-    private int calculateTotalCost(Set<Article> articles) {
-        return articles.stream()
-                .map(Article::getCost)
-                .reduce(0, Integer::sum);
-    }
+//    public History articlePurchase(Set<Article> articles){
+//        User currentUser = userService.getCurrentUser();
+//        int totalCost = calculateTotalCost(articles);
+//
+//        // Skapa en ny historikpost för köpet
+//        History history = new History();
+//        history.setUser(currentUser);
+//        history.setPurchasedArticles(articles);
+//        history.setTotalCost(totalCost);
+//
+//        // Spara historikposten i lagringsstället
+//        return historyRepository.save(history);
+//    }
+//
+//    // Beräkna den totala kostnaden för en uppsättning artiklar
+//    private int calculateTotalCost(Set<Article> articles) {
+//        return articles.stream()
+//                .map(Article::getCost)
+//                .reduce(0, Integer::sum);
+//    }
 
 }
 

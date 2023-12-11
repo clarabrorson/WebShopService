@@ -32,9 +32,12 @@ public class CartController {
     private Cart addArticleToCart(@PathVariable Long id){
         User currentUser = userService.getCurrentUser();
         cartService.addArticleToCartFromDB(id, currentUser);
-        return cartService.getCarts();
-
+        // Ensure you fetch the updated cart associated with the current user
+        return cartService.getCartForCurrentUser();
     }
+    //@RequestParam int quantity hämtar quantity från URL
+    //Exempel: http://localhost:8080/webshop/cart/1/articles/1?quantity=5
+    //quantity=5 är en parameter
     //@RequestParam int quantity hämtar quantity från URL
     //Exempel: http://localhost:8080/webshop/cart/1/articles/1?quantity=5
     //quantity=5 är en parameter

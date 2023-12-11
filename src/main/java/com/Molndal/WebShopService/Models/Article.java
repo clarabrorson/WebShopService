@@ -23,4 +23,6 @@ public class Article {
     @JoinColumn(name = "history_id")
     private History history;
 
+    private int quantity;
+
 }
