@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/webshop/cart")
 public class CartController {
 
-    @Autowired
-    private CartService cartService;
-    @Autowired
-    private UserService userService;
+    @Autowired private CartService cartService;
+    @Autowired private UserService userService;
 
     @GetMapping("")
     private Cart getCart() {
+
         return cartService.getCarts();
     }
 
     @GetMapping("/{id}")
     private Cart getCartById(@PathVariable Long id) {
+
         return cartService.getCartById(id);
     }
 
@@ -48,7 +48,6 @@ public class CartController {
         Cart updatedCart = cartService.updateArticleCount(cartId, articleId, quantity);
         return ResponseEntity.ok(updatedCart);
     }
-
     @DeleteMapping("/{cartId}/articles/{articleId}")
     public ResponseEntity<Cart> deleteArticleFromCart(
             @PathVariable Long cartId,

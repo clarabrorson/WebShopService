@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,13 +20,9 @@ import java.util.stream.Collectors;
 public class CartService {
 
     @Autowired private CartRepository cartRepository;
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ArticleRepository articleRepository;
-    @Autowired
-    private UserService userService;
+    @Autowired private UserRepository userRepository;
+    @Autowired private ArticleRepository articleRepository;
+    @Autowired private UserService userService;
 
 
     //Admin bör ha möjlighet att se alla carts
@@ -56,27 +51,6 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-    /*public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
-        try {
-            Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
-            Set<Article> articles = cart.getArticles();
-
-            // Filtrera bort artikel med articleId genom Stream()
-            articles = articles.stream()
-                    .filter(article -> !article.getId().equals(articleId))
-                    .collect(Collectors.toSet());
-
-            cart.setArticles(articles);
-            return cartRepository.save(cart);
-
-        } catch (ChangeSetPersister.NotFoundException e) {
-
-            e.printStackTrace();
-
-            throw e;
-        }
-    }*/
-
     public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
         Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
         Set<Article> articles = cart.getArticles();
@@ -95,9 +69,6 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-
-
-    //Användare och artikel bör finnas i databasen
     public void addArticleToCartFromDB(Long id, User currentUser) {
         Cart cart = currentUser.getCart();
 
