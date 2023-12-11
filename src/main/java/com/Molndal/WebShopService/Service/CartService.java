@@ -7,7 +7,9 @@ import com.Molndal.WebShopService.Repository.ArticleRepository;
 import com.Molndal.WebShopService.Repository.CartRepository;
 import com.Molndal.WebShopService.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+
 
 
 import java.util.HashSet;
@@ -37,33 +39,63 @@ public class CartService {
         return cartRepository.findById(id).orElse(null);
     }
 
-
-    public Cart updateArticleCount(Long cartId, Long articleId, int quantity) {
-        Cart cart = cartRepository.findById(cartId).orElseGet(Cart::new);
+    public Cart updateArticleCount(Long cartId, Long articleId, int quantity) throws ChangeSetPersister.NotFoundException {
+        Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
         Set<Article> articles = cart.getArticles();
 
-        //Sök efter artikel i databasen.Stream() används för att kunna filtrera på id.
-        Article article = articles.stream().filter(a -> a.getId().equals(articleId)).findFirst().orElse(null);
-        assert article != null;
-        article.setQuantity(quantity);
-        cart.setArticles(articles);
+        // Sök efter artikel i databasen. Stream() används för att kunna filtrera på id.
+        Article article = articles.stream()
+                .filter(a -> a.getId().equals(articleId))
+                .findFirst()
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
 
+        // Uppdatera artikelkvantiteten
+        article.setQuantity(quantity);
+
+        // Spara uppdaterad cart i databasen
         return cartRepository.save(cart);
     }
 
-    public Cart deleteArticleFromCart(Long cartId, Long articleId) {
+    /*public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
+        try {
+            Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
+            Set<Article> articles = cart.getArticles();
 
-        Cart cart = cartRepository.findById(cartId).orElseGet(Cart::new);
+            // Filtrera bort artikel med articleId genom Stream()
+            articles = articles.stream()
+                    .filter(article -> !article.getId().equals(articleId))
+                    .collect(Collectors.toSet());
+
+            cart.setArticles(articles);
+            return cartRepository.save(cart);
+
+        } catch (ChangeSetPersister.NotFoundException e) {
+
+            e.printStackTrace();
+
+            throw e;
+        }
+    }*/
+
+    public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
+        Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
         Set<Article> articles = cart.getArticles();
 
-        //Filtrera bort artikel med articleId genom Stream()
+        // Filtrera bort artikel med articleId genom Stream()
         articles = articles.stream()
                 .filter(article -> !article.getId().equals(articleId))
                 .collect(Collectors.toSet());
 
+        // Kontrollera om några ändringar gjordes innan du sparar
+        if (articles.size() == cart.getArticles().size()) {
+            throw new ChangeSetPersister.NotFoundException();
+        }
+
         cart.setArticles(articles);
         return cartRepository.save(cart);
     }
+
+
 
     //Användare och artikel bör finnas i databasen
     public void addArticleToCartFromDB(Long id, User currentUser) {
