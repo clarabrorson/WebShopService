@@ -23,7 +23,8 @@ public class ArticleController {
     //Alla har tillgång till denna förfrågan, även de som inte är inloggade
     @GetMapping("")
     private ResponseEntity<List<Article>> getArticles() {
-    return ResponseEntity.ok(articleService.getAllArticles());
+
+        return ResponseEntity.ok(articleService.getAllArticles());
     }
 
     //Inloggade users och admin-förfrågan
