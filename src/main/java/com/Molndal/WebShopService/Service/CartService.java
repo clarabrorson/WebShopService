@@ -46,13 +46,13 @@ public class CartService {
         Article article = articles.stream().filter(a -> a.getId().equals(articleId)).findFirst().orElse(null);
         assert article != null;
         article.setQuantity(quantity);
-        articles.add(article);
         cart.setArticles(articles);
 
         return cartRepository.save(cart);
     }
 
     public Cart deleteArticleFromCart(Long cartId, Long articleId) {
+
         Cart cart = cartRepository.findById(cartId).orElseGet(Cart::new);
         Set<Article> articles = cart.getArticles();
 
