@@ -5,6 +5,7 @@ import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Service.CartService;
 import com.Molndal.WebShopService.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
