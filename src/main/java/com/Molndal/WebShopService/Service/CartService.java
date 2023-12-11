@@ -37,6 +37,7 @@ public class CartService {
         return cartRepository.findById(id).orElse(null);
     }
 
+
     public Cart updateArticleCount(Long cartId, Long articleId, int quantity) {
         Cart cart = cartRepository.findById(cartId).orElseGet(Cart::new);
         Set<Article> articles = cart.getArticles();
@@ -64,19 +65,6 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-    public Cart updateArticleCount(int quantity, Article article) {
-        Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
-        cart.setArticles((Set<Article>) article);
-        return cartRepository.save(cart);
-    }
-
-    public Cart deleteArticleFromCart(Article article) {
-        Cart cart = cartRepository.findById(1L).orElseGet(Cart::new);
-        Set<Article> articles = cart.getArticles();
-        articles.remove(article);
-        cart.setArticles(articles);
-        return cartRepository.save(cart);
-    }
     //Användare och artikel bör finnas i databasen
     public void addArticleToCartFromDB(Long id, User currentUser) {
         Cart cart = currentUser.getCart();

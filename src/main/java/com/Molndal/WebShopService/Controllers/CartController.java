@@ -38,6 +38,9 @@ public class CartController {
     //@RequestParam int quantity hämtar quantity från URL
     //Exempel: http://localhost:8080/webshop/cart/1/articles/1?quantity=5
     //quantity=5 är en parameter
+    //@RequestParam int quantity hämtar quantity från URL
+    //Exempel: http://localhost:8080/webshop/cart/1/articles/1?quantity=5
+    //quantity=5 är en parameter
     @PatchMapping("/{cartId}/articles/{articleId}")
     public ResponseEntity<Cart> updateArticleCount(
             @PathVariable Long cartId,
