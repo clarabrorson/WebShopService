@@ -1,6 +1,9 @@
 package com.Molndal.WebShopService;
+import com.Molndal.WebShopService.Models.Article;
+import com.Molndal.WebShopService.Models.History;
 import com.Molndal.WebShopService.Models.Role;
 import com.Molndal.WebShopService.Models.User;
+import com.Molndal.WebShopService.Repository.ArticleRepository;
 import com.Molndal.WebShopService.Repository.RoleRepository;
 import com.Molndal.WebShopService.Repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +26,7 @@ public class WebShopServiceApplication {
 		//Denna metod definierar en bean för CommandLineRunner, som används för att köra specifik kod vid applikationens uppstart.
 		//Här används den för att lägga till initial data i databasen om den är tom.
 		@Bean
-		CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+		CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, ArticleRepository articleRepository) {
 			return args -> {
 				//Kontrollerar om en roll med auktoriteten "ADMIN" redan finns i databasen.
 				// Om den finns, avslutas metoden tidigt och inget mer görs.
@@ -43,6 +46,11 @@ public class WebShopServiceApplication {
 				//Användaren sparas i databasen genom UserRepository.
 				User admin = new User(1L, "admin", passwordEncoder.encode("password"), roles);
 				userRepository.save(admin);
+
+
+				//Skapar en article och sparar den i databasen
+				Article article = new Article(1L, "Banan", 10, "En gul frukt", 50);
+				articleRepository.save(article);
 			};
 	}
 

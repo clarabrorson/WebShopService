@@ -65,7 +65,7 @@ public class SecurityConfig {
                     //Dessa förfrågningar måste vara autentiserade med "USER" eller "ADMIN".
                     auth.requestMatchers("/webshop/articles/").hasAnyRole("ADMIN", "USER");
                     auth.requestMatchers("/webshop/user/**").hasAnyRole("ADMIN", "USER");
-
+                    auth.requestMatchers("/webshop/cart**").hasAnyRole("ADMIN", "USER");
 
                     //Dessa förfrågningar måste vara autentiserade med rollen "ADMIN".
                     auth.requestMatchers("/webshop/articles/admin/**").hasRole("ADMIN");
