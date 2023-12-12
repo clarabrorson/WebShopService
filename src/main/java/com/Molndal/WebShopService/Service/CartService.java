@@ -11,9 +11,6 @@ import com.Molndal.WebShopService.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-
-
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,7 +19,6 @@ import java.util.stream.Collectors;
 public class CartService {
 
     @Autowired private CartRepository cartRepository;
-
     @Autowired private UserRepository userRepository;
     @Autowired private ArticleRepository articleRepository;
     @Autowired private UserService userService;
@@ -147,7 +143,6 @@ public class CartService {
             }
         }
     }
-
 
     private int calculateTotalCost(Set<Article> articles) {
         return articles.stream()
