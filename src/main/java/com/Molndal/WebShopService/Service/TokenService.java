@@ -16,33 +16,40 @@ import java.util.stream.Collectors;
  * This class is used to generate a jwt token for the user and admin.
  * The token is used to authenticate the user when accessing the API.
  * Depending on the role of the user, the user will have access to different parts of the API.
+ * The method also checks if the jwtEncoder and jwtDecoder are properly configured.
  *
  */
 
 @Service
 public class TokenService {
 
-    @Autowired
-    private JwtEncoder jwtEncoder;
-    @Autowired
-    private JwtDecoder jwtDecoder;
+    @Autowired private JwtEncoder jwtEncoder;
+    @Autowired private JwtDecoder jwtDecoder;
 
-    public String generateJwt(Authentication auth){
+    public String generateJwt(Authentication auth) {
+        try {
+            if (jwtEncoder == null || jwtDecoder == null) {
+                throw new IllegalStateException("JwtEncoder or JwtDecoder is not properly configured.");
+            }
 
-        Instant now = Instant.now();
+            Instant now = Instant.now();
 
-        String scope = auth.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(" "));
+            String scope = auth.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.joining(" "));
 
-        JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer("self")
-                .issuedAt(now)
-                .subject(auth.getName())
-                .claim("roles", scope)
-                .build();
+            JwtClaimsSet claims = JwtClaimsSet.builder()
+                    .issuer("self")
+                    .issuedAt(now)
+                    .subject(auth.getName())
+                    .claim("roles", scope)
+                    .build();
 
-        return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+            return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error generating JWT";
+        }
     }
 
 }

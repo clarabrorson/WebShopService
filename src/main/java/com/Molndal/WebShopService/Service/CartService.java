@@ -9,27 +9,26 @@ import com.Molndal.WebShopService.Repository.CartRepository;
 import com.Molndal.WebShopService.Repository.HistoryRepository;
 import com.Molndal.WebShopService.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-
-
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @author Clara Brorson
+ * This class is used to perform operations on the cart.
+ * It contains methods for adding, removing and updating articles in the cart.
+ *
+ */
 @Service
 public class CartService {
 
     @Autowired private CartRepository cartRepository;
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ArticleRepository articleRepository;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private HistoryRepository historyRepository;
+    @Autowired private UserRepository userRepository;
+    @Autowired private ArticleRepository articleRepository;
+    @Autowired private UserService userService;
+    @Autowired private HistoryRepository historyRepository;
 
 
     //Admin bör ha möjlighet att se alla carts
@@ -41,35 +40,41 @@ public class CartService {
         return cartRepository.findById(id).orElse(null);
     }
 
-
-    public Cart updateArticleCount(Long cartId, Long articleId, int quantity) {
-        Cart cart = cartRepository.findById(cartId).orElseGet(Cart::new);
+    public Cart updateArticleCount(Long cartId, Long articleId, int quantity) throws ChangeSetPersister.NotFoundException {
+        Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
         Set<Article> articles = cart.getArticles();
 
-        //Sök efter artikel i databasen.Stream() används för att kunna filtrera på id.
-        Article article = articles.stream().filter(a -> a.getId().equals(articleId)).findFirst().orElse(null);
-        assert article != null;
-        article.setQuantity(quantity);
-        articles.add(article);
-        cart.setArticles(articles);
+        // Sök efter artikel i databasen. Stream() används för att kunna filtrera på id.
+        Article article = articles.stream()
+                .filter(a -> a.getId().equals(articleId))
+                .findFirst()
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
 
+        // Uppdatera artikelkvantiteten
+        article.setQuantity(quantity);
+
+        // Spara uppdaterad cart i databasen
         return cartRepository.save(cart);
     }
 
-    public Cart deleteArticleFromCart(Long cartId, Long articleId) {
-        Cart cart = cartRepository.findById(cartId).orElseGet(Cart::new);
+    public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
+        Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
         Set<Article> articles = cart.getArticles();
 
-        //Filtrera bort artikel med articleId genom Stream()
+        // Filtrera bort artikel med articleId genom Stream()
         articles = articles.stream()
                 .filter(article -> !article.getId().equals(articleId))
                 .collect(Collectors.toSet());
 
+        // Kontrollera om några ändringar gjordes innan du sparar
+        if (articles.size() == cart.getArticles().size()) {
+            throw new ChangeSetPersister.NotFoundException();
+        }
+
         cart.setArticles(articles);
         return cartRepository.save(cart);
     }
 
-    //Användare och artikel bör finnas i databasen
     public void addArticleToCartFromDB(Long id, User currentUser) {
         Cart cart = currentUser.getCart();
 
@@ -100,13 +105,18 @@ public class CartService {
         }
     }
 
+    /**
+     * @author Jafar Hussein
+     * getCartForCurrentUser() is used to get the cart for the current user.
+     * purchaseCart() is used to purchase the cart for the current user.
+     * calculateTotalCost() is used to calculate the total cost of the articles in the cart.
+     * The methods also handle exceptions.
+     */
     public Cart getCartForCurrentUser() {
         User currentUser = userService.getCurrentUser();
         return currentUser != null ? currentUser.getCart() : null;
     }
 
-    // Registrera ett köp i användarens historik
-    // Purchase the items in the user's cart
     public void purchaseCart(User currentUser) {
         // Fetch the user's cart
         Cart cart = cartRepository.findByUser(currentUser);
@@ -144,7 +154,6 @@ public class CartService {
             }
         }
     }
-
 
     private int calculateTotalCost(Set<Article> articles) {
         return articles.stream()
