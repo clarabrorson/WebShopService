@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
@@ -18,13 +19,19 @@ public class Article {
     private String name;
     private int cost;
     private String description;
+    private int quantity;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "history_id")
     private History history;
 
-
-    private int quantity;
+    public Article(Long id, String name, int cost, String description, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+        this.description = description;
+        this.quantity = quantity;
+    }
 
     public void setHistory(History history) {
         if (this.history != null) {
