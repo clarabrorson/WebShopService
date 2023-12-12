@@ -30,13 +30,17 @@ public class HistoryController {
         List<History> allHistory = historyService.getAllHistory();
         return ResponseEntity.ok(allHistory);
     }
-    @GetMapping("/{id}")
-    private ResponseEntity<List<History>> getOneUserHistory(
-            @PathVariable Long id
-    ) {
-        List<History> userHistory = historyService.getUserHistory(id);
-        return ResponseEntity.ok(userHistory);
+    @GetMapping("/current")
+    private ResponseEntity<List<History>> getCurrentUserHistory() {
+        try {
+            List<History> userHistory = historyService.getUserHistory();
+            return ResponseEntity.ok(userHistory);
+        } catch (Exception e) {
+            // Log or handle the exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 
     @PostMapping("/purchase")
     private ResponseEntity<String> purchaseCart() {

@@ -114,8 +114,16 @@ public class CartService {
      */
     public Cart getCartForCurrentUser() {
         User currentUser = userService.getCurrentUser();
-        return currentUser != null ? currentUser.getCart() : null;
+        Cart userCart = currentUser != null ? currentUser.getCart() : null;
+
+        if (userCart != null) {
+            // Load articles eagerly to include them in the response
+            userCart.getArticles().size();
+        }
+
+        return userCart;
     }
+
 
     public void purchaseCart(User currentUser) {
         // Fetch the user's cart
