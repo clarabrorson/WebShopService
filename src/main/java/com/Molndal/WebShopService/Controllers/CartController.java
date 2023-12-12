@@ -9,7 +9,8 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**@author Clara Brorson
+/**
+ * @author Clara Brorson
  * This class is used to handle requests from the client to the API.
  * The class is used to get, add, update and delete articles from the cart.
  * The class is also used to get the cart for the current user.
@@ -49,7 +50,7 @@ public class CartController {
         Cart updatedCart = cartService.updateArticleCount(cartId, articleId, quantity);
         return ResponseEntity.ok(updatedCart);
     }
-    
+
     @DeleteMapping("/{cartId}/articles/{articleId}")
     public ResponseEntity<Cart> deleteArticleFromCart(
             @PathVariable Long cartId,

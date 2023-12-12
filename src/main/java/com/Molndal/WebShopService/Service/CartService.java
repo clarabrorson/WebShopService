@@ -15,6 +15,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @author Clara Brorson
+ * This class is used to perform operations on the cart.
+ * It contains methods for adding, removing and updating articles in the cart.
+ *
+ */
 @Service
 public class CartService {
 
@@ -99,13 +105,18 @@ public class CartService {
         }
     }
 
+    /**
+     * @author Jafar Hussein
+     * getCartForCurrentUser() is used to get the cart for the current user.
+     * purchaseCart() is used to purchase the cart for the current user.
+     * calculateTotalCost() is used to calculate the total cost of the articles in the cart.
+     * The methods also handle exceptions.
+     */
     public Cart getCartForCurrentUser() {
         User currentUser = userService.getCurrentUser();
         return currentUser != null ? currentUser.getCart() : null;
     }
 
-    // Registrera ett köp i användarens historik
-    // Purchase the items in the user's cart
     public void purchaseCart(User currentUser) {
         // Fetch the user's cart
         Cart cart = cartRepository.findByUser(currentUser);
