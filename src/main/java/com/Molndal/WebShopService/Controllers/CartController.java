@@ -29,7 +29,7 @@ public class CartController {
         return cartService.getCartById(id);
     }
 
-    @PostMapping("/add/{id}")
+    @PostMapping("/{id}")
     private Cart addArticleToCart(@PathVariable Long id){
         User currentUser = userService.getCurrentUser();
         cartService.addArticleToCartFromDB(id, currentUser);
