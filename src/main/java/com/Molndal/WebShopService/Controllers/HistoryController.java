@@ -30,11 +30,9 @@ public class HistoryController {
         List<History> allHistory = historyService.getAllHistory();
         return ResponseEntity.ok(allHistory);
     }
-    @GetMapping("/{id}")
-    private ResponseEntity<List<History>> getOneUserHistory(
-            @PathVariable Long id
-    ) {
-        List<History> userHistory = historyService.getUserHistory(id);
+    @GetMapping("/current")
+    private ResponseEntity<List<History>> getCurrentUserHistory() {
+        List<History> userHistory = historyService.getUserHistory();
         return ResponseEntity.ok(userHistory);
     }
 

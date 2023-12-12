@@ -39,15 +39,10 @@ public class HistoryService {
     }
 
     // Hämta historik för den aktuella användaren
-    public List<History> getUserHistory(Long userId){
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            return historyRepository.findByUser(user);
-        } else {
-            // Hantera fallet när användaren inte finns
-            return Collections.emptyList();
-        }
+    // Hämta historik för den aktuella användaren
+    public List<History> getUserHistory() {
+        User currentUser = userService.getCurrentUser();
+        return historyRepository.findByUser(currentUser);
     }
 
 }
