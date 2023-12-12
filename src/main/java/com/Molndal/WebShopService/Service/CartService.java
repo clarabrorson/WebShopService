@@ -2,9 +2,11 @@ package com.Molndal.WebShopService.Service;
 
 import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Models.Cart;
+import com.Molndal.WebShopService.Models.History;
 import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Repository.ArticleRepository;
 import com.Molndal.WebShopService.Repository.CartRepository;
+import com.Molndal.WebShopService.Repository.HistoryRepository;
 import com.Molndal.WebShopService.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ public class CartService {
     private ArticleRepository articleRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private HistoryRepository historyRepository;
 
 
     //Admin bör ha möjlighet att se alla carts
@@ -99,5 +103,52 @@ public class CartService {
     public Cart getCartForCurrentUser() {
         User currentUser = userService.getCurrentUser();
         return currentUser != null ? currentUser.getCart() : null;
+    }
+
+    // Registrera ett köp i användarens historik
+    // Purchase the items in the user's cart
+    public void purchaseCart(User currentUser) {
+        // Fetch the user's cart
+        Cart cart = cartRepository.findByUser(currentUser);
+
+        // Ensure the cart is not null
+        if (cart != null) {
+            // Retrieve the articles from the cart
+            Set<Article> articlesInCart = cart.getArticles();
+
+            // Perform the purchase action (create a history entry, etc.)
+            if (!articlesInCart.isEmpty()) {
+                // Create a purchase history entry
+                History purchaseHistory = new History();
+                purchaseHistory.setUser(currentUser);
+
+                // Clear the existing purchasedArticles collection in history
+                purchaseHistory.getPurchasedArticles().clear();
+
+                // Add new articles to the purchasedArticles in the history entry
+                purchaseHistory.getPurchasedArticles().addAll(articlesInCart);
+
+                // Set the history attribute in each Article to link them
+                for (Article article : articlesInCart) {
+                    article.setHistory(purchaseHistory);
+                }
+
+                purchaseHistory.setTotalCost(calculateTotalCost(articlesInCart));
+
+                // Save the purchase history entry
+                historyRepository.save(purchaseHistory);
+
+                // Optionally, you can perform additional actions here, such as clearing the cart
+                cart.setArticles(new HashSet<>());
+                cartRepository.save(cart);
+            }
+        }
+    }
+
+
+    private int calculateTotalCost(Set<Article> articles) {
+        return articles.stream()
+                .map(Article::getCost)
+                .reduce(0, Integer::sum);
     }
 }
