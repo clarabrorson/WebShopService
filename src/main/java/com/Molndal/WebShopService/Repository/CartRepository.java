@@ -2,10 +2,13 @@ package com.Molndal.WebShopService.Repository;
 
 import com.Molndal.WebShopService.Models.Cart;
 import com.Molndal.WebShopService.Models.Role;
+import com.Molndal.WebShopService.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
     Optional<Cart> findCartById(Long cartId);
+
+    Cart findByUser(User currentUser);
 }
