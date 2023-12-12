@@ -1,14 +1,10 @@
 package com.Molndal.WebShopService.Service;
 
-import com.Molndal.WebShopService.Models.Article;
-import com.Molndal.WebShopService.Models.Cart;
 import com.Molndal.WebShopService.Models.History;
 import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Repository.CartRepository;
 import com.Molndal.WebShopService.Repository.HistoryRepository;
 import com.Molndal.WebShopService.Repository.UserRepository;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,16 +35,17 @@ public class HistoryService {
     }
 
     // Hämta historik för den aktuella användaren
-    // Hämta historik för den aktuella användaren
     public List<History> getUserHistory() {
+        // Get the current user directly within the service
         User currentUser = userService.getCurrentUser();
-        return historyRepository.findByUser(currentUser);
+
+        if (currentUser != null) {
+            // If the current user is not null, retrieve the history
+            return historyRepository.findByUser(currentUser);
+        } else {
+            // Hantera fallet när användaren inte finns
+            return Collections.emptyList();
+        }
     }
 
 }
-
-
-
-
-
-

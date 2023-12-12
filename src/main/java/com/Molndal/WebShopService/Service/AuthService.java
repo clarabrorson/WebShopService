@@ -1,5 +1,6 @@
 package com.Molndal.WebShopService.Service;
 
+import com.Molndal.WebShopService.Models.Cart;
 import com.Molndal.WebShopService.Models.LoginResponse;
 import com.Molndal.WebShopService.Models.Role;
 import com.Molndal.WebShopService.Models.User;
@@ -94,11 +95,27 @@ public class AuthService {
 
             String token = tokenService.generateJwt(auth);
 
-            return ResponseEntity.ok(new LoginResponse(userRepository.findByUsername(username).get(), token));
+            // Fetch the user from the repository
+            User user = userRepository.findByUsername(username).orElse(null);
+
+            if (user != null) {
+                // Check if the user has a cart
+                Cart userCart = user.getCart();
+                if (userCart == null) {
+                    // If the user doesn't have a cart, create a new one and assign it
+                    userCart = new Cart();
+                    userCart.setUser(user);
+                    user.setCart(userCart);
+                    userRepository.save(user);
+                }
+            }
+
+            return ResponseEntity.ok(new LoginResponse(user, token));
 
         } catch (AuthenticationException e) {
             return ResponseEntity.ok(new LoginResponse(null, ""));
         }
     }
+
 
 }

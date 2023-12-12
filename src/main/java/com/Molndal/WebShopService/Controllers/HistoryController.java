@@ -32,9 +32,15 @@ public class HistoryController {
     }
     @GetMapping("/current")
     private ResponseEntity<List<History>> getCurrentUserHistory() {
-        List<History> userHistory = historyService.getUserHistory();
-        return ResponseEntity.ok(userHistory);
+        try {
+            List<History> userHistory = historyService.getUserHistory();
+            return ResponseEntity.ok(userHistory);
+        } catch (Exception e) {
+            // Log or handle the exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 
     @PostMapping("/purchase")
     private ResponseEntity<String> purchaseCart() {
