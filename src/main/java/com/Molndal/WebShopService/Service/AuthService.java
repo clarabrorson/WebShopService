@@ -7,6 +7,7 @@ import com.Molndal.WebShopService.Repository.RoleRepository;
 import com.Molndal.WebShopService.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -38,20 +40,54 @@ public class AuthService {
     @Autowired
     private TokenService tokenService;
 
-    public ResponseEntity<User> register(String username, String password) {
-        String encryptedPassword = passwordEncoder.encode(password);
+    /** This method registers a user in the database.
+     * It checks if the username already exists in the database.
+     * If it does, it returns a bad request.
+     * If it doesn't, it encrypts the password and saves the user in the database.
+     * @param username
+     * @param password
+     * @return ResponseEntity<?>
+     * The wildcard is used to return a response entity with any type of body.
+     * This is because the body can be either a string or a user.
+     */
+    public ResponseEntity<?> register(String username, String password) {
+        try {
+            Optional<User> existingUser = userRepository.findByUsername(username);
+            if (existingUser.isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Username already exists");
+            }
 
-        Role userRole = roleRepository.findByAuthority("USER").get();
+            String encryptedPassword = passwordEncoder.encode(password);
 
-        Set<Role> authorities = new HashSet<>();
+            Role userRole = roleRepository.findByAuthority("USER").get();
 
-        authorities.add(userRole);
+            Set<Role> authorities = new HashSet<>();
 
-        return ResponseEntity.ok(userRepository.save( new User(0L, username, encryptedPassword, authorities) ));
+            authorities.add(userRole);
+
+            User newUser = new User(0L, username, encryptedPassword, authorities);
+            User savedUser = userRepository.save(newUser);
+
+            return ResponseEntity.ok(savedUser);
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error during registration");
+        }
     }
 
-    public ResponseEntity<LoginResponse> login (String username, String password) {
-        try{
+    /** This method logs in a user/admin.
+     * It checks if the username and password matches the ones in the database.
+     * If it does, it returns a response entity with the user and a jwt token.
+     * @param username
+     * @param password
+     * @return ResponseEntity<LoginResponse>
+     * The response entity has a body of type LoginResponse.
+     */
+    public ResponseEntity<LoginResponse> login(String username, String password) {
+        try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
@@ -60,7 +96,7 @@ public class AuthService {
 
             return ResponseEntity.ok(new LoginResponse(userRepository.findByUsername(username).get(), token));
 
-        } catch(AuthenticationException e){
+        } catch (AuthenticationException e) {
             return ResponseEntity.ok(new LoginResponse(null, ""));
         }
     }
