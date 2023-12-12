@@ -31,6 +31,5 @@ public class Cart {
             inverseJoinColumns = @JoinColumn(name = "article_id")
     )
 
-
     private Set<Article> articles;
 }
