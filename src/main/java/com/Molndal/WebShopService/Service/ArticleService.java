@@ -69,7 +69,6 @@ public class ArticleService {
         existingArticle.setCost(articleDetails.getCost());
         existingArticle.setDescription(articleDetails.getDescription());
 
-        //Returnerar och sparar den uppdaterade artikeln
         return articleRepository.save(existingArticle);
     }
 
