@@ -3,9 +3,21 @@ package com.Molndal.WebShopService.Utils;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 
-//Hjälp-klass som innehåller en statisk metod som genererar ett RSA-nyckelpar.
+/**
+ * Hjälp-klass som innehåller en statisk metod som genererar ett RSA-nyckelpar.
+ * Nyckelparet används för att signera och verifiera JWT-token.
+ *
+ * @author Fredrik
+ */
+
 public class KeyGenerator {
 
+    /**
+     * Denna metod genererar ett RSA-nyckelpar.
+     *
+     * @throws IllegalStateException om något går fel.
+     * @return ett RSA-nyckelpar.
+     */
     public static KeyPair generateRsaKey() {
 
         KeyPair keyPair;
@@ -18,10 +30,8 @@ public class KeyGenerator {
             //Genererar ett nyckelpar.
             keyPair = keyPairGenerator.genKeyPair();
         } catch (Exception e) {
-            //Om något går fel kastas ett IllegalStateException.
             throw new IllegalStateException();
         }
-        //Returnerar det genererade nyckelparet.
         return keyPair;
     }
 }
