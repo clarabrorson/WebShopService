@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author fredrik
+ * Denna klass används för att hantera förfrågningar till <a href="http://localhost:8081/webshop/articles">...</a> från klienten till API:et.
+ * Klassen används för att hämta, lägga till, uppdatera och ta bort artiklar från databasen.
+ * Beroende på användarens roll, kommer användaren att ha tillgång till olika delar av API:et.
+ */
 @RestController
 @RequestMapping("/webshop/articles")
 @CrossOrigin("*")
@@ -21,6 +27,11 @@ public class ArticleController { //
     private ArticleService articleService;
 
     //Alla har tillgång till denna förfrågan, även de som inte är inloggade
+
+    /**
+     * Denna metod används för att hämta alla artiklar från databasen. Alla har tillgång till denna metod, även de som inte är inloggade
+     * @return en lista med alla artiklar.
+     */
     @GetMapping("")
     private ResponseEntity<List<Article>> getArticles() {
 
