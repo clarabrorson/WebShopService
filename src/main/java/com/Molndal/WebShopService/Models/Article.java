@@ -36,6 +36,7 @@ public class Article {
 
     public void setHistory(History history) {
         if (this.history != null) {
+
             this.history.getPurchasedArticles().remove(this);
         }
         this.history = history;

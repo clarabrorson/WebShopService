@@ -61,7 +61,11 @@ public class SecurityConfig {
                     //Dessa förfrågningar är tillåtna utan autentisering.
                     auth.requestMatchers("/webshop/auth/**").permitAll();
 
+
                     //Tilldelar behörigheter för endpoints till olika roller
+                    //Denna gäller för user-endpoints
+                    auth.requestMatchers("/webshop/user").hasAnyRole("USER", "ADMIN");
+
                     //Dessa gäller för alla article-endpoints
                     auth.requestMatchers(HttpMethod.DELETE,"/webshop/articles/**").hasRole("ADMIN");
                     auth.requestMatchers(HttpMethod.PATCH,"/webshop/articles/**").hasRole("ADMIN");
