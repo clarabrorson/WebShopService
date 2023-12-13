@@ -25,8 +25,7 @@ public class Article {
     @JoinColumn(name = "history_id")
     private History history;
 
-    public Article(Long id, String name, int cost, String description, int quantity) {
-        this.id = id;
+    public Article(String name, int cost, String description, int quantity) {
         this.name = name;
         this.cost = cost;
         this.description = description;
