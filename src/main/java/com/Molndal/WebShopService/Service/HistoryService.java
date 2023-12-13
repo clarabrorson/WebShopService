@@ -1,5 +1,6 @@
 package com.Molndal.WebShopService.Service;
 
+import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Models.History;
 import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Repository.CartRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class HistoryService {
@@ -35,13 +37,20 @@ public class HistoryService {
     }
 
     // Hämta historik för den aktuella användaren
-    public List<History> getUserHistory() {
+    public List<Article> getUserHistory() {
         // Get the current user directly within the service
         User currentUser = userService.getCurrentUser();
 
         if (currentUser != null) {
             // If the current user is not null, retrieve the history
-            return historyRepository.findByUser(currentUser);
+            List<History> userHistory = historyRepository.findByUser(currentUser);
+
+            // Collect purchased articles from each history entry
+            List<Article> purchasedArticles = userHistory.stream()
+                    .flatMap(history -> history.getPurchasedArticles().stream())
+                    .collect(Collectors.toList());
+
+            return purchasedArticles;
         } else {
             // Hantera fallet när användaren inte finns
             return Collections.emptyList();

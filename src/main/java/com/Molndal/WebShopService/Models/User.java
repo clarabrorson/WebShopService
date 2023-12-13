@@ -1,6 +1,7 @@
 package com.Molndal.WebShopService.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,12 +50,13 @@ public class User implements UserDetails {
      * Mängd inköpshistorik kopplad till användaren.
      */
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<History> histories;
     /**
      * Kundvagn kopplad till användaren.
      */
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonManagedReference
     private Cart cart;
 
     /**

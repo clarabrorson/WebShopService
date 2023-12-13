@@ -31,12 +31,12 @@ public class HistoryController {
         return ResponseEntity.ok(allHistory);
     }
     @GetMapping("/current")
-    private ResponseEntity<List<History>> getCurrentUserHistory() {
+    private ResponseEntity<List<Article>> getCurrentUserPurchasedArticles() {
         try {
-            List<History> userHistory = historyService.getUserHistory();
-            return ResponseEntity.ok(userHistory);
+            List<Article> purchasedArticles = historyService.getUserHistory();
+            return ResponseEntity.ok(purchasedArticles);
         } catch (Exception e) {
-            // Log or handle the exception
+            e.printStackTrace();  // Log or print the exception details
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
