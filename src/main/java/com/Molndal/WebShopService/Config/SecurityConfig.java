@@ -81,7 +81,7 @@ public class SecurityConfig {
 
                     //Dessa gäller för alla history-endpoints
                     auth.requestMatchers(HttpMethod.GET,"/webshop/history").hasRole("ADMIN");
-                    auth.requestMatchers(HttpMethod.GET,"/webshop/history/current").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/webshop/history/currentUserHistory").hasAnyRole("USER", "ADMIN");
                     auth.requestMatchers(HttpMethod.GET,"/webshop/history/purchase").hasAnyRole("USER", "ADMIN");
 
                     //Alla andra övriga förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.

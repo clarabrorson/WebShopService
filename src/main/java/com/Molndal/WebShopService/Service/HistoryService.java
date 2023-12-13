@@ -32,8 +32,7 @@ public class HistoryService {
 
     // Hämta alla historikposter
     public List<History> getAllHistory(){
-        User currentUser = userService.getCurrentUser();
-        return historyRepository.findByUser(currentUser);
+        return historyRepository.findAll();
     }
 
     // Hämta historik för den aktuella användaren

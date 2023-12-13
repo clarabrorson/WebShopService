@@ -26,11 +26,11 @@ public class HistoryController {
   private CartService cartService;
 
     @GetMapping("")
-    private ResponseEntity<List<History>> getAllHistorik() {
+    private ResponseEntity<List<History>> getAllHistory() {
         List<History> allHistory = historyService.getAllHistory();
         return ResponseEntity.ok(allHistory);
     }
-    @GetMapping("/current")
+    @GetMapping("/currentUserHistory")
     private ResponseEntity<List<Article>> getCurrentUserPurchasedArticles() {
         try {
             List<Article> purchasedArticles = historyService.getUserHistory();
