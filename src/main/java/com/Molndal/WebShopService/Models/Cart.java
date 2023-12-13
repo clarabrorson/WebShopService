@@ -1,5 +1,6 @@
 package com.Molndal.WebShopService.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class Cart {
     private Long id;
 
     @OneToOne
+    @JsonBackReference
     private User user;
 
 
@@ -30,6 +32,6 @@ public class Cart {
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "article_id")
     )
-
+    @JsonBackReference
     private Set<Article> articles;
 }
