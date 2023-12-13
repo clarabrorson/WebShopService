@@ -27,7 +27,7 @@ public class ArticleController { //
         return ResponseEntity.ok(articleService.getAllArticles());
     }
 
-    //Inloggade users och admin-förfrågan
+    //Alla har tillgång till denna förfrågan, även de som inte är inloggade
     @GetMapping("/{id}")
     private ResponseEntity<Article> getOneArticle(
             @PathVariable Long id
@@ -36,7 +36,7 @@ public class ArticleController { //
     }
 
     //Endast admin-förfrågan
-    @PostMapping("/admin")
+    @PostMapping("")
     private ResponseEntity<Article> addArticle(
             @RequestBody Article article
     ) {
@@ -44,7 +44,7 @@ public class ArticleController { //
     }
 
     //Endast admin-förfrågan
-    @PatchMapping("/admin/{id}")
+    @PatchMapping("/{id}")
     private ResponseEntity<Article> updateArticle(
             @PathVariable Long id,
             @RequestBody Article articleDetails
@@ -53,7 +53,7 @@ public class ArticleController { //
     }
 
     //Endast admin-förfrågan
-    @DeleteMapping("/admin/{id}")
+    @DeleteMapping("/{id}")
     private ResponseEntity<String> deleteArticle(
         @PathVariable Long id
 ) {

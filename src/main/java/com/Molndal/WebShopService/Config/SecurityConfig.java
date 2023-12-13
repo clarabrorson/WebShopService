@@ -60,17 +60,27 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     //Dessa förfrågningar är tillåtna utan autentisering.
                     auth.requestMatchers("/webshop/auth/**").permitAll();
-                    auth.requestMatchers("/webshop/articles").permitAll();
 
-                    //Dessa förfrågningar måste vara autentiserade med "USER" eller "ADMIN".
-                    auth.requestMatchers("/webshop/articles/").hasAnyRole("ADMIN", "USER");
-                    auth.requestMatchers("/webshop/user/**").hasAnyRole("ADMIN", "USER");
-                    auth.requestMatchers("/webshop/cart**").hasAnyRole("ADMIN", "USER");
+                    //Tilldelar behörigheter för endpoints till olika roller
+                    //Dessa gäller för alla article-endpoints
+                    auth.requestMatchers(HttpMethod.DELETE,"/webshop/articles/**").hasRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.PATCH,"/webshop/articles/**").hasRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.POST,"/webshop/articles/**").hasRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/webshop/articles/**").permitAll();
 
-                    //Dessa förfrågningar måste vara autentiserade med rollen "ADMIN".
-                    auth.requestMatchers("/webshop/articles/admin/**").hasRole("ADMIN");
+                    //Dessa gäller för alla cart-endpoints
+                    auth.requestMatchers(HttpMethod.DELETE,"/webshop/cart/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.PATCH,"/webshop/cart/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.POST,"/webshop/cart/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/webshop/cart/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/webshop/cart").hasRole("ADMIN");
 
-                    //Alla andra förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.
+                    //Dessa gäller för alla history-endpoints
+                    auth.requestMatchers(HttpMethod.GET,"/webshop/history").hasRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/webshop/history/current").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/webshop/history/purchase").hasAnyRole("USER", "ADMIN");
+
+                    //Alla andra övriga förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.
                     auth.anyRequest().authenticated();
                 });
         //OAuth2 Resource Server stöd aktiveras och konfigureras för att använda JWTs.
