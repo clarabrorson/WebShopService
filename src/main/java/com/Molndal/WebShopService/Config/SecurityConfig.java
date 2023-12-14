@@ -26,23 +26,34 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-//Klass som konfigurerar säkerheten för Spring Security
-//Den är annoterad med @Configuration för att indikera att det är en konfigurationsklass för Spring Framework
+/**
+ * Klass som konfigurerar säkerheten för Spring Security
+ * Den är annoterad med @Configuration för att indikera att det är en konfigurationsklass för Spring Framework
+ *
+ * @author Fredrik
+ */
 @Configuration
 public class SecurityConfig {
 
-    //Instansvariabel till en KeyProperties-instans
     private final KeyProperties keys;
 
-    //Konstruktor som tar in en KeyProperties-instans som parameter och lagrar den i keys-instansvariabeln.
     public SecurityConfig(KeyProperties keys) {this.keys = keys;}
 
-    //Denna metod definierar en bean för PasswordEncoder, som används för att koda lösenord.
+    /**
+     * Denna metod definierar en bean för PasswordEncoder, som används för att koda lösenord.
+     *
+     * @return en instans av BCryptPasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {return new BCryptPasswordEncoder();}
 
-    //Denna metod definierar en bean för AuthenticationManager, som är ansvarig för att validera användarautentisering.
-    //DaoAuthenticationProvider är en implementering av AuthenticationProvider som hämtar användardetaljer från en UserDetailsService.
+    /**
+     * Denna metod definierar en bean för AuthenticationManager, som är ansvarig för att validera användarautentisering.
+     * DaoAuthenticationProvider är en implementering av AuthenticationProvider som hämtar användardetaljer från en UserDetailsService.
+     *
+     * @param userDetailsService är en instans av UserDetailsService som används för att hämta användardetaljer från databasen.
+     * @return en instans av AuthenticationManager
+     */
     @Bean
     public AuthenticationManager authManager(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
@@ -51,8 +62,14 @@ public class SecurityConfig {
         return new ProviderManager(daoProvider);
     }
 
-    //Denna metod definierar en bean för SecurityFilterChain, som är en kedja av säkerhetsfilter som tillämpas på inkommande HTTP-förfrågningar.
-    //Den innehåller en HttpSecurity som definierar säkerhetsreglerna för applikationen.
+    /**
+     * Denna metod definierar en bean för SecurityFilterChain, som är en kedja av säkerhetsfilter som tillämpas på inkommande HTTP-förfrågningar.
+     * Den innehåller en HttpSecurity som definierar säkerhetsreglerna för applikationen.
+     *
+     * @param http är en instans av HttpSecurity som används för att definiera säkerhetsreglerna för applikationen.
+     * @return en instans av SecurityFilterChain
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -61,7 +78,11 @@ public class SecurityConfig {
                     //Dessa förfrågningar är tillåtna utan autentisering.
                     auth.requestMatchers("/webshop/auth/**").permitAll();
 
+
                     //Tilldelar behörigheter för endpoints till olika roller
+                    //Denna gäller för user-endpoints
+                    auth.requestMatchers("/webshop/user").hasAnyRole("USER", "ADMIN");
+
                     //Dessa gäller för alla article-endpoints
                     auth.requestMatchers(HttpMethod.DELETE,"/webshop/articles/**").hasRole("ADMIN");
                     auth.requestMatchers(HttpMethod.PATCH,"/webshop/articles/**").hasRole("ADMIN");
@@ -77,7 +98,7 @@ public class SecurityConfig {
 
                     //Dessa gäller för alla history-endpoints
                     auth.requestMatchers(HttpMethod.GET,"/webshop/history").hasRole("ADMIN");
-                    auth.requestMatchers(HttpMethod.GET,"/webshop/history/current").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/webshop/history/currentUserHistory").hasAnyRole("USER", "ADMIN");
                     auth.requestMatchers(HttpMethod.GET,"/webshop/history/purchase").hasAnyRole("USER", "ADMIN");
 
                     //Alla andra övriga förfrågningar måste vara autentiserade. Om en förfrågan inte är autentiserad kommer den att avvisas.
@@ -94,7 +115,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    //Denna metod definierar en bean för JwtDecoder, som används för att avkoda JWTs.
+    /**
+     * Denna metod definierar en bean för JwtDecoder, som används för att avkoda JWTs.
+     *
+     * @return en instans av JwtDecoder
+     */
     @Bean
     public JwtDecoder jwtDecoder() {
         //NimbusJwtDecoder.withPublicKey används för att skapa en JwtDecoder som använder den offentliga nyckeln från KeyProperties för att avkoda JWTs.
@@ -102,6 +127,11 @@ public class SecurityConfig {
         return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();
     }
 
+    /**
+     * Denna metod definierar en bean för JwtEncoder, som används för att koda JWTs.
+     *
+     * @return en instans av JwtEncoder
+     */
     @Bean
     public JwtEncoder jwtEncoder() {
         //En RSA-key skapas med den offentliga och privata nyckeln från KeyProperties.
@@ -112,8 +142,12 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwks);
     }
 
-    //Denna metod definierar en bean för JwtAuthenticationConverter, som används för att konvertera en JWT till en Authentication-instans.
-    //Detta behövs för att autentisera användaren och tilldela behörigheter baserat på JWT.
+    /**
+     * Denna metod definierar en bean för JwtAuthenticationConverter, som används för att konvertera en JWT till en Authentication-instans.
+     * Detta behövs för att autentisera användaren och tilldela behörigheter baserat på JWT.
+     *
+     * @return en instans av JwtAuthenticationConverter
+     */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter(){
         //Skapar en JwtGrantedAuthoritiesConverter, som används för att konvertera JWT-anspråk till GrantedAuthority-instanser.

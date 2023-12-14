@@ -1,5 +1,6 @@
 package com.Molndal.WebShopService.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Article {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "history_id")
+    @JsonBackReference
     private History history;
 
     public Article(String name, int cost, String description, int quantity) {
@@ -34,6 +36,7 @@ public class Article {
 
     public void setHistory(History history) {
         if (this.history != null) {
+
             this.history.getPurchasedArticles().remove(this);
         }
         this.history = history;
