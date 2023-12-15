@@ -13,41 +13,66 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
-
+/**
+ * En controller-klass som hanterar historikrelaterade operationer för webbshoppen.
+ * Denna controller ger möjlighet att hämta historikposter och köpta artiklar samt utföra köptransaktioner.
+ * Alla metoder i denna controller kräver att användaren är autentiserad.
+ * Endpoint för att hämta alla historikposter: <code>GET /webshop/history</code>
+ * Endpoint för att hämta alla köpta artiklar för den aktuella användaren: <code>GET /webshop/history/currentUserHistory</code>
+ * Endpoint för att utföra en köptransaktion: <code>POST /webshop/history/purchase</code>
+ *
+ * @author Jafar
+ */
 @RestController
 @RequestMapping("/webshop/history")
+@CrossOrigin("*")
 public class HistoryController {
 
-  @Autowired
-   private HistoryService historyService;
-  @Autowired
-  private UserService userService;
-  @Autowired
-  private CartService cartService;
+    @Autowired
+    private HistoryService historyService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CartService cartService;
+
+    /**
+     * Hämtar alla historikposter från webbshopen.
+     * Användare med olika roller har tillgång till denna metod.
+     * @return ResponseEntity med en lista av historikposter om framgångsrikt, annars INTERNAL_SERVER_ERROR.
+     */
     @GetMapping("")
     private ResponseEntity<List<History>> getAllHistory() {
         List<History> allHistory = historyService.getAllHistory();
         return ResponseEntity.ok(allHistory);
     }
+
+    /**
+     * Hämtar alla köpta artiklar för den aktuella användaren.
+     * Användare med olika roller har tillgång till denna metod.
+     * @return ResponseEntity med en lista av köpta artiklar om framgångsrikt, annars INTERNAL_SERVER_ERROR.
+     */
     @GetMapping("/currentUserHistory")
     private ResponseEntity<List<Article>> getCurrentUserPurchasedArticles() {
         try {
             List<Article> purchasedArticles = historyService.getUserHistory();
             return ResponseEntity.ok(purchasedArticles);
         } catch (Exception e) {
-            e.printStackTrace();  // Log or print the exception details
+            e.printStackTrace();  // Logga eller skriv ut detaljer om exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-
+    /**
+     * Utför en köptransaktion för den aktuella användaren baserat på innehållet i varukorgen.
+     * Endast användare med rollen "USER" har tillgång till denna metod.
+     * @return ResponseEntity med en meddelandesträng om att köpet genomfördes framgångsrikt.
+     */
     @PostMapping("/purchase")
     private ResponseEntity<String> purchaseCart() {
         User currentUser = userService.getCurrentUser();
         cartService.purchaseCart(currentUser);
         return ResponseEntity.ok("Purchase completed successfully.");
     }
-
-
 }
