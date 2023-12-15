@@ -12,12 +12,8 @@ import java.time.Instant;
 import java.util.stream.Collectors;
 
 /**
+ * Den här klassen används för att generera en jwt token för användaren och admin.
  * @author Clara Brorson
- * This class is used to generate a jwt token for the user and admin.
- * The token is used to authenticate the user when accessing the API.
- * Depending on the role of the user, the user will have access to different parts of the API.
- * The method also checks if the jwtEncoder and jwtDecoder are properly configured.
- *
  */
 
 @Service
@@ -26,6 +22,14 @@ public class TokenService {
     @Autowired private JwtEncoder jwtEncoder;
     @Autowired private JwtDecoder jwtDecoder;
 
+    /**
+     * Den här metoden används för att generera en jwt token för användaren och admin.
+     * Token används för att autentisera användaren när den använder API:et.
+     * Beroende på användarens roll har användaren tillgång till olika delar av API:et.
+     * Metoden kontrollerar också om jwtEncoder och jwtDecoder är korrekt konfigurerade.
+     * @param auth
+     * @return
+     */
     public String generateJwt(Authentication auth) {
         try {
             if (jwtEncoder == null || jwtDecoder == null) {
