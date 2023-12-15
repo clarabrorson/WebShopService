@@ -10,11 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ * Den här klassen används för att hantera förfrågningar till webshop/cart från klienten till API:et.
+ * Klassen använder requestmapping för att hämta, lägga till, uppdatera och ta bort artiklar från databasen.
+ * Beroende på användarens roll, kommer användaren att ha tillgång till olika delar av API:et.
  * @author Clara Brorson
- * This class is used to handle requests from the client to the API.
- * The class is used to get, add, update and delete articles from the cart.
- * The class is also used to get the cart for the current user.
- * Depending on the role of the user, the user will have access to different parts of the API.
  */
 @RestController
 @RequestMapping("/webshop/cart")
@@ -22,14 +21,33 @@ public class CartController {
     @Autowired private CartService cartService;
     @Autowired private UserService userService;
 
+    /**
+     * Denna metod används för att hämta alla Carts från databasen. Endast användare med rollen "ADMIN" har tillgång till denna metod.
+     * Endpoint: GET /webshop/cart
+     * @return en lista med alla Carts.
+     */
     @GetMapping("")
     private Cart getCart() {
         return cartService.getCarts();
     }
+
+    /**
+     * Denna metod används för att hämta en kundkorg från databasen med ett specifikt id.
+     * Endpoint: GET /webshop/cart/{id}
+     * @param id är id:t för den Cart som ska hämtas.
+     * @return en Cart med det specifika id:t.
+     */
     @GetMapping("/{id}")
     private Cart getCartById(@PathVariable Long id) {
         return cartService.getCartById(id);
     }
+
+    /**
+     * Denna metod används för att lägga till en artikel i kundkorgen. Artikeln hämtas från databasen med ett specifikt id.
+     * Endpoint: POST /webshop/cart/{id}
+     * @param cart är id:t för artikeln som ska läggas till i kundkorgen.
+     * @return en Cart med den nya artikeln.
+     */
     @PostMapping("/{id}")
     private Cart addArticleToCart(@PathVariable Long id){
         User currentUser = userService.getCurrentUser();
@@ -39,8 +57,10 @@ public class CartController {
     }
 
     /**
-     * This method is used to update the quantity of an article in the cart.
-     * @RequestParam int quantity is used to get the quantity from the url.
+     * Denna metod används för att uppdatera antalet artiklar i kundkorgen.
+     * Endpoint: PATCH /webshop/cart/{cartId}/articles/{articleId}
+     * @param quantity = antalet av artiklar man vill uppdatera till.
+     * @return en Cart med uppdatet antal artiklar.
      */
     @PatchMapping("/{cartId}/articles/{articleId}")
     public ResponseEntity<Cart> updateArticleCount(
@@ -50,6 +70,12 @@ public class CartController {
         Cart updatedCart = cartService.updateArticleCount(cartId, articleId, quantity);
         return ResponseEntity.ok(updatedCart);
     }
+
+    /**
+     * Denna metod används för att ta bort en artikel från kundkorgen.
+     * Endpoint: DELETE /webshop/cart/{cartId}/articles/{articleId}
+     * @return en Cart med borttagen artikel.
+     */
 
     @DeleteMapping("/{cartId}/articles/{articleId}")
     public ResponseEntity<Cart> deleteArticleFromCart(
