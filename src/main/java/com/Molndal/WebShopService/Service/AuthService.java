@@ -27,7 +27,6 @@ import java.util.Set;
  * @author Clara Brorson
  */
 
-
 @Service
 @RequiredArgsConstructor
 public class AuthService {
