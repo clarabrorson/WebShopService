@@ -8,9 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
+ * Den här klassen används för att skapa roller för användare.
+ * Den implementerar GrantedAuthority för att kunna användas av Spring Security.
  * @author Clara Brorson
- * This class is a model for the role of the user.
- * It implements GrantedAuthority from Spring Security.
  */
 @Entity
 @Data
@@ -24,21 +24,16 @@ public class Role implements GrantedAuthority {
 
     private String authority;
 
-    //Lade till konstruktor för att CommandLineRunner skulle funka
     public Role() {super();}
 
-    //Lade till konstruktor för att CommandLineRunner skulle funka
     public Role(String authority) {
         this.authority = authority;
     }
 
-    //Lade till konstruktor för att CommandLineRunner skulle funka
     public Role(Integer roleId, String authority) {
         this.roleId = roleId;
         this.authority = authority;
     }
-
-    //Ändrade från null till this.authority
     @Override
     public String getAuthority() {
         return this.authority;

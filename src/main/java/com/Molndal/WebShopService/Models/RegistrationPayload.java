@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * Den här klassen används för att skicka in användarnamn och lösenord vid registrering.
  * @author Clara Brorson
- * This class is used to create a payload for registration
  */
 @Data
 @AllArgsConstructor
