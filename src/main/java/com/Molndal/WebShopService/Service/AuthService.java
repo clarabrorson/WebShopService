@@ -21,11 +21,12 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
+ * Denna klass är en Service för autentisering av användare och admin.
+ * Den har två metoder, en för att registrera en användare och en för att logga in en användare/admin.
+ * Den har även en metod för att kryptera lösenordet.
  * @author Clara Brorson
- * This class is a service for the authentication of the user and admin.
- * It has two methods, one for registering a user and one for logging in a user/admin.
- * It also has a method for encrypting the password.
  */
+
 
 @Service
 @RequiredArgsConstructor
@@ -41,16 +42,17 @@ public class AuthService {
     @Autowired
     private TokenService tokenService;
 
-    /** This method registers a user in the database.
-     * It checks if the username already exists in the database.
-     * If it does, it returns a bad request.
-     * If it doesn't, it encrypts the password and saves the user in the database.
+    /** Denna metod registrerar en användare i databasen.
+     * Den kontrollerar om användarnamnet redan finns i databasen.
+     * Om det gör det, returnerar den en felaktig förfrågan (bad request).
+     * Om det inte gör det, krypterar den lösenordet och sparar användaren i databasen.
      * @param username
      * @param password
      * @return ResponseEntity<?>
-     * The wildcard is used to return a response entity with any type of body.
-     * This is because the body can be either a string or a user.
+     * Wildcard används för att returnera en response entity med vilken typ av body som helst.
+     * Detta beror på att body kan vara antingen en sträng eller en användare.
      */
+
     public ResponseEntity<?> register(String username, String password) {
         try {
             Optional<User> existingUser = userRepository.findByUsername(username);
@@ -79,13 +81,14 @@ public class AuthService {
         }
     }
 
-    /** This method logs in a user/admin.
-     * It checks if the username and password matches the ones in the database.
-     * If it does, it returns a response entity with the user and a jwt token.
+    /** Denna metod loggar in en användare/admin.
+     * Den kontrollerar om användarnamnet och lösenordet stämmer överens med det som finns i databasen.
+     * Om det gör det, genererar den en token och returnerar en response entity med användaren och token.
+     * Om det inte gör det, returnerar den en response entity med en tom användare och en tom token.
      * @param username
      * @param password
      * @return ResponseEntity<LoginResponse>
-     * The response entity has a body of type LoginResponse.
+     * LoginResponse är en klass som innehåller en användare och en token.
      */
     public ResponseEntity<LoginResponse> login(String username, String password) {
         try {
