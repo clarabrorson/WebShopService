@@ -20,7 +20,7 @@ import java.util.Set;
  * Representerar en användare i webbshop-applikationen.
  * Implementerar Spring Security UserDetails-gränssnittet för autentisering och auktorisering.
  *
- * @Author Jafar Hussein
+ * @author Jafar Hussein
  */
 @Entity
 @Data
