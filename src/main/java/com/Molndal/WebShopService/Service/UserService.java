@@ -39,4 +39,8 @@ public class UserService implements UserDetailsService {
         Optional<User> userOptional = userRepository.findByUsername(username);
         return userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
+
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
 }
