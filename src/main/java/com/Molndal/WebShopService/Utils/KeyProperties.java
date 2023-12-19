@@ -20,6 +20,9 @@ public class KeyProperties {
     private RSAPublicKey publicKey;
     private RSAPrivateKey privateKey;
 
+    /**
+     * Konstruktor som genererar ett RSA-nyckelpar.
+     */
     public KeyProperties() {
         KeyPair keyPair = KeyGenerator.generateRsaKey();
         this.privateKey = (RSAPrivateKey) keyPair.getPrivate();

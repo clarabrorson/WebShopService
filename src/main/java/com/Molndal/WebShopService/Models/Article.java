@@ -6,7 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-
+/**
+ * Denna klass används för att skapa ett Article-objekt
+ *
+ * @author Fredrik
+ */
 @Data
 @Entity
 @AllArgsConstructor
@@ -22,11 +26,22 @@ public class Article {
     private String description;
     private int quantity;
 
+    /**
+     * Inköpshistorik kopplad till artikeln.
+     */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "history_id")
     @JsonBackReference
     private History history;
 
+    /**
+     * Konstruktor för att skapa ett Article-objekt.
+     *
+     * @param name är namnet på artikeln.
+     * @param cost är priset på artikeln.
+     * @param description är beskrivningen av artikeln.
+     * @param quantity är antalet artiklar som finns i lager.
+     */
     public Article(String name, int cost, String description, int quantity) {
         this.name = name;
         this.cost = cost;
@@ -34,6 +49,11 @@ public class Article {
         this.quantity = quantity;
     }
 
+    /**
+     * Metod för att lägga till en artikel i inköpshistoriken.
+     *
+     * @param history är inköpshistoriken som artikeln ska läggas till i.
+     */
     public void setHistory(History history) {
         if (this.history != null) {
 
@@ -44,6 +64,7 @@ public class Article {
             history.getPurchasedArticles().add(this);
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

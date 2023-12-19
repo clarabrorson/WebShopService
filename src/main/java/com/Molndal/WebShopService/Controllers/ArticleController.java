@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/webshop/articles")
 @CrossOrigin("*")
-public class ArticleController { //
+public class ArticleController {
 
     @Autowired
     private ArticleService articleService;

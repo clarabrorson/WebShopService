@@ -20,7 +20,7 @@ import java.util.Set;
  * Representerar en användare i webbshop-applikationen.
  * Implementerar Spring Security UserDetails-gränssnittet för autentisering och auktorisering.
  *
- * @Author Jafar Hussein
+ * @author Jafar Hussein
  */
 @Entity
 @Data
@@ -129,10 +129,10 @@ public class User implements UserDetails {
         return true;
     }
     @JsonIgnore
-    public Set<Article> getArticles() {
+    public Set<Article> getArticles() { // skapar en lista med artiklar som användaren har köpt
         return this.cart != null ? this.cart.getArticles() : new HashSet<>();
     }
-    public Long getCartId() {
+    public Long getCartId() { // hämtar kundvagnens id om den finns
         return this.cart != null ? this.cart.getId() : null;
     }
 }

@@ -27,7 +27,7 @@ public class History {
     private int totalCost;
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o) { // kontrollerar om två objekt är lika
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         History history = (History) o;
@@ -35,7 +35,8 @@ public class History {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() { // returnerar ett unikt hashcode för varje objekt
         return id != null ? id.hashCode() : 0;
+
     }
 }

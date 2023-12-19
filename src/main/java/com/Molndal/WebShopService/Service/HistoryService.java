@@ -41,7 +41,7 @@ public class HistoryService {
         User currentUser = userService.getCurrentUser();
 
         if (currentUser != null) {
-            // If the current user is not null, retrieve the history
+            // om användaren finns, hämta historik för användaren
             List<History> userHistory = historyRepository.findByUser(currentUser);
 
             // Collect purchased articles from each history entry

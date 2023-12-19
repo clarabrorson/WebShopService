@@ -47,7 +47,7 @@ public class AuthService {
      * Om det inte gör det, krypterar den lösenordet och sparar användaren i databasen.
      * @param username
      * @param password
-     * @return ResponseEntity<?>
+     * @return ResponseEntity
      * Wildcard används för att returnera en response entity med vilken typ av body som helst.
      * Detta beror på att body kan vara antingen en sträng eller en användare.
      */

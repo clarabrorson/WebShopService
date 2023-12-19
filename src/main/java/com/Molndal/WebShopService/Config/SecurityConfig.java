@@ -37,6 +37,11 @@ public class SecurityConfig {
 
     private final KeyProperties keys;
 
+    /**
+     * Konstruktor som tar emot en instans av KeyProperties.
+     *
+     * @param keys är en instans av KeyProperties som används för att hämta nyckelpar.
+     */
     public SecurityConfig(KeyProperties keys) {this.keys = keys;}
 
     /**
@@ -67,8 +72,8 @@ public class SecurityConfig {
      * Den innehåller en HttpSecurity som definierar säkerhetsreglerna för applikationen.
      *
      * @param http är en instans av HttpSecurity som används för att definiera säkerhetsreglerna för applikationen.
-     * @return en instans av SecurityFilterChain
-     * @throws Exception
+     * @return en instans av SecurityFilterChain.
+     * @throws Exception om något går fel.
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

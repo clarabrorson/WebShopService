@@ -1,0 +1,7 @@
+com.Molndal.WebShopService
+com.Molndal.WebShopService.Config
+com.Molndal.WebShopService.Controllers
+com.Molndal.WebShopService.Models
+com.Molndal.WebShopService.Repository
+com.Molndal.WebShopService.Service
+com.Molndal.WebShopService.Utils

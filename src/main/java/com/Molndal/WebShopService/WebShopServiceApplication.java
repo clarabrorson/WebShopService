@@ -15,16 +15,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ * Detta är huvudklassen för applikationen.
+ */
 @SpringBootApplication
 public class WebShopServiceApplication {
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(WebShopServiceApplication.class, args);
 	}
 
-		//Denna metod definierar en bean för CommandLineRunner, som används för att köra specifik kod vid applikationens uppstart.
-		//Här används den för att lägga till initial data i databasen om den är tom.
+	/**
+	 * Denna metod används för att lägga till initial data i databasen om den är tom.
+	 * @param roleRepository
+	 * @param userRepository
+	 * @param passwordEncoder
+	 * @param articleRepository
+	 */
 		@Bean
 		CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, ArticleRepository articleRepository) {
 			return args -> {

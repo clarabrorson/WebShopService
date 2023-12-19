@@ -11,5 +11,12 @@ import java.util.Optional;
  * @author Fredrik
  */
 public interface ArticleRepository extends JpaRepository<Article, Long> {
+
+    /**
+     * Denna metod används för att hämta en artikel från databasen med ett specifikt id.
+     *
+     * @param articleId är id:t för den artikel som ska hämtas.
+     * @return en artikel med det specifika id:t.
+     */
     Optional<Article> findArticleById(Long articleId);
 }

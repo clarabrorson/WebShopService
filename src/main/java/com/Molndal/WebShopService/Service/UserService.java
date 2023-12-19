@@ -27,20 +27,24 @@ public class UserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // Hämtar användare från databasen om den finns
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
     public List<History> getPurchaseHistory(){
         User currentUser = getCurrentUser();
         return historyRepository.findByUser(currentUser);
     }
-    public User getCurrentUser() {
+    public User getCurrentUser() { //Hämtar inloggad användare
+        //skapar en variabel som hämtar inloggad användare
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        //hämtar användaren från databasen
         Optional<User> userOptional = userRepository.findByUsername(username);
+        //returnerar användaren
         return userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers(){ //Hämtar alla användare
         return userRepository.findAll();
+
     }
 }
