@@ -37,14 +37,14 @@ public class HistoryService {
 
     // Hämta historik för den aktuella användaren
     public List<Article> getUserHistory() {
-        // Get the current user directly within the service
+        // Hämta den inloggade användaren
         User currentUser = userService.getCurrentUser();
 
         if (currentUser != null) {
             // om användaren finns, hämta historik för användaren
             List<History> userHistory = historyRepository.findByUser(currentUser);
 
-            // Collect purchased articles from each history entry
+            // Samla alla köpta artiklar från historiken
             List<Article> purchasedArticles = userHistory.stream()
                     .flatMap(history -> history.getPurchasedArticles().stream())
                     .collect(Collectors.toList());
