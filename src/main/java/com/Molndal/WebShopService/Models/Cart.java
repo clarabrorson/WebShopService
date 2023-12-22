@@ -24,9 +24,7 @@ public class Cart {
     @OneToOne
 
     private User user;
-
-
-   @ManyToMany // Many-to-Many-relation med Article
+    @ManyToMany // Many-to-Many-relation med Article
     @JoinTable(
             name = "cart_article_junction",
             joinColumns = @JoinColumn(name = "cart_id"),

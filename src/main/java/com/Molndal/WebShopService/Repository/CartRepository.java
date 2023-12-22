@@ -12,7 +12,6 @@ import java.util.Optional;
  * @author Clara Brorson
  */
 public interface CartRepository extends JpaRepository<Cart, Long> {
-    @EntityGraph(attributePaths = {"user", "user.username"})
     Optional<Cart> findCartById(Long cartId);
     Cart findByUser(User currentUser);
 }

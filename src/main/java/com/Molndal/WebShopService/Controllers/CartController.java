@@ -32,7 +32,6 @@ public class CartController {
         return cartService.getCarts();
     }
 
-
     /**
      * Denna metod används för att hämta en kundkorg från databasen med ett specifikt id.
      * Endpoint: GET /webshop/cart/{id}
@@ -61,8 +60,10 @@ public class CartController {
     /**
      * Denna metod används för att uppdatera antalet artiklar i kundkorgen.
      * Endpoint: PATCH /webshop/cart/{cartId}/articles/{articleId}
+     * @param cartId är id:t för den Cart som artikeln ska uppdateras i.
+     * @param articleId är id:t för den artikel som ska uppdateras.
      * @param quantity = antalet av artiklar man vill uppdatera till.
-     * @return en Cart med uppdatet antal artiklar.
+     * @return en Cart med uppdaterat antal artiklar.
      */
     @PatchMapping("/{cartId}/articles/{articleId}")
     public ResponseEntity<Cart> updateArticleCount(
@@ -76,6 +77,8 @@ public class CartController {
     /**
      * Denna metod används för att ta bort en artikel från kundkorgen.
      * Endpoint: DELETE /webshop/cart/{cartId}/articles/{articleId}
+     * @param cartId är id:t för den Cart som artikeln ska tas bort från.
+     * @param articleId är id:t för den artikel som ska tas bort.
      * @return en Cart med borttagen artikel.
      */
 

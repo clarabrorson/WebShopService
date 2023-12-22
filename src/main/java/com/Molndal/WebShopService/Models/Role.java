@@ -24,16 +24,32 @@ public class Role implements GrantedAuthority {
 
     private String authority;
 
+    /**
+     * Konstruktor för att skapa ett Role-objekt.
+     */
     public Role() {super();}
 
+    /**
+     * Konstruktor för att skapa ett Role-objekt.
+     * @param authority är rollen som ska skapas.
+     */
     public Role(String authority) {
         this.authority = authority;
     }
 
+    /**
+     * Konstruktor för att skapa ett Role-objekt.
+     * @param roleId är id:t för rollen som ska skapas.
+     * @param authority är rollen som ska skapas.
+     */
     public Role(Integer roleId, String authority) {
         this.roleId = roleId;
         this.authority = authority;
     }
+    /**
+     * Metod för att hämta rollen.
+     * @return rollen.
+     */
     @Override
     public String getAuthority() {
         return this.authority;

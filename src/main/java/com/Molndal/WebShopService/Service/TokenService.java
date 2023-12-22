@@ -27,8 +27,8 @@ public class TokenService {
      * Token används för att autentisera användaren när den använder API:et.
      * Beroende på användarens roll har användaren tillgång till olika delar av API:et.
      * Metoden kontrollerar också om jwtEncoder och jwtDecoder är korrekt konfigurerade.
-     * @param auth
-     * @return
+     * @param auth är användarens autentisering.
+     * @return en jwt token för användaren.
      */
     public String generateJwt(Authentication auth) {
         try {

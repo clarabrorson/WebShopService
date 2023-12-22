@@ -31,7 +31,7 @@ public class CartService {
 
     /**
      * Denna metod används för att hämta alla carts.
-     * @return carts
+     * @return carts är en lista med alla carts.
      * Endast admin har tillgång till denna funktion.
      */
     public Cart getCarts() {
