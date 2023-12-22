@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * En controller-klass som hanterar användarrelaterade operationer för webbshoppen.
  * Denna controller ger möjlighet att hämta information om den inloggade användaren.
@@ -31,25 +33,13 @@ public class UserController {
     /**
      * Hämtar information om den inloggade användaren.
      * Endast inloggade användare har tillgång till denna metod.
-     * @return ResponseEntity med information om den inloggade användaren om framgångsrikt, annars INTERNAL_SERVER_ERROR.
+     * @return ResponseEntity med lista av information om den inloggade användaren om framgångsrikt, annars INTERNAL_SERVER_ERROR.
      */
     @GetMapping("")
-    public ResponseEntity<User> getUser() {
-        // Hämta inloggad användares autentiseringsinformation
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        // Hämta användaren från databasen baserat på inloggat användarnamn
-        User user;
-        try {
-            user = (User) userService.loadUserByUsername(username);
-            // Rensa lösenordet innan du skickar det som svar
-            user.setPassword(null);
-            // Skicka tillbaka användaren utan lösenordet som respons
-            return ResponseEntity.ok(user);
-        } catch (UsernameNotFoundException e) {
-            e.printStackTrace();  // Logga eller skriv ut detaljer om exception
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
+
 }
 
