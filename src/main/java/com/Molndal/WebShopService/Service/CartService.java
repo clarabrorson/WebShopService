@@ -40,8 +40,8 @@ public class CartService {
 
     /**
      * Denna metod används för att hämta en cart med ett specifikt id.
-     * @param id
-     * @return cart
+     * @param id är id:t för den cart som ska hämtas.
+     * @return cart med det specifika id:t.
      */
     public Cart getCartById(Long id) {
         return cartRepository.findById(id).orElse(null);
@@ -49,10 +49,10 @@ public class CartService {
 
     /**
      * Denna metod används för att uppdatera antalet artiklar i en cart.
-     * @param cartId
-     * @param articleId
-     * @param quantity
-     * @return cart
+     * @param cartId är id:t för den cart som ska uppdateras.
+     * @param articleId är id:t för den artikel som ska uppdateras.
+     * @param quantity är det nya antalet artiklar.
+     * @return cart med den uppdaterade artikeln.
      */
 
     public Cart updateArticleCount(Long cartId, Long articleId, int quantity) throws ChangeSetPersister.NotFoundException {
@@ -71,9 +71,9 @@ public class CartService {
 
     /**
      * Denna metod används för att ta bort en artikel från en cart.
-     * @param cartId
-     * @param articleId
-     * @return cart
+     * @param cartId är id:t för den cart som ska uppdateras.
+     * @param articleId är id:t för den artikel som ska tas bort.
+     * @return cart med den borttagna artikeln.
      */
     public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
         Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
@@ -93,8 +93,8 @@ public class CartService {
 
     /**
      * Denna metod används för att lägga till en artikel i en cart.
-     * @param id
-     * @param currentUser
+     * @param id är id:t för den artikel som ska läggas till.
+     * @param currentUser är den användare som är inloggad.
      */
     public void addArticleToCartFromDB(Long id, User currentUser) {
         Cart cart = currentUser.getCart();
@@ -142,7 +142,7 @@ public class CartService {
     /**
      * Den här metoden utför en köpaktion genom att skapa en köphistorikpost.
      * Den länkar köpta artiklar till den, beräknar den totala kostnaden och sparar sedan köphistorikposten i databasen.
-     * @param currentUser
+     * @param currentUser är den användare som är inloggad.
      * @author Jafar Hussein
      */
 
@@ -180,8 +180,8 @@ public class CartService {
 
     /**
      * Den här metoden beräknar den totala kostnaden för en uppsättning artiklar.
-     * @param articles
-     * @return totalCost
+     * @param articles är en uppsättning artiklar.
+     * @return totalCost är den totala kostnaden för artiklarna i uppsättningen.
      * @author Jafar Hussein
      */
     private int calculateTotalCost(Set<Article> articles) {
