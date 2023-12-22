@@ -26,10 +26,12 @@ public class CartController {
      * Endpoint: GET /webshop/cart
      * @return en lista med alla Carts.
      */
+
     @GetMapping("")
     private Cart getCart() {
         return cartService.getCarts();
     }
+
 
     /**
      * Denna metod används för att hämta en kundkorg från databasen med ett specifikt id.
