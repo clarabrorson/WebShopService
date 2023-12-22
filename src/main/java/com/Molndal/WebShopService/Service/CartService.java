@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,9 +35,22 @@ public class CartService {
      * @return carts är en lista med alla carts.
      * Endast admin har tillgång till denna funktion.
      */
-    public Cart getCarts() {
-        return cartRepository.findById(1L).orElse(null);
+    public List<Cart> getCarts() {
+        List<Cart> carts = cartRepository.findAll();
+
+        for (Cart cart : carts) {
+            // Load articles eagerly to include them in the response
+            cart.getArticles().size();
+
+            // Check if the user is not null before accessing properties
+            if (cart.getUser() != null) {
+                cart.setUsername(cart.getUser().getUsername());
+            }
+        }
+
+        return carts;
     }
+
 
     /**
      * Denna metod används för att hämta en cart med ett specifikt id.
