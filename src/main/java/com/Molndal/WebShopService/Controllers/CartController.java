@@ -9,6 +9,8 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Den här klassen används för att hantera förfrågningar till webshop/cart från klienten till API:et.
  * Klassen använder requestmapping för att hämta, lägga till, uppdatera och ta bort artiklar från databasen.
@@ -28,7 +30,7 @@ public class CartController {
      */
 
     @GetMapping("")
-    private Cart getCart() {
+    private List<Cart> getCart() {
         return cartService.getCarts();
     }
 

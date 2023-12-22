@@ -1,5 +1,6 @@
 package com.Molndal.WebShopService.Models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -33,4 +34,10 @@ public class Cart {
 
 
     private Set<Article> articles;
+
+    private String username;
+    @JsonProperty("username")
+    public String getUsername() {
+        return user != null ? user.getUsername() : null;
+    }
 }
