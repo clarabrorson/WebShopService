@@ -28,10 +28,10 @@ public class WebShopServiceApplication {
 
 	/**
 	 * Denna metod används för att lägga till initial data i databasen om den är tom.
-	 * @param roleRepository
-	 * @param userRepository
-	 * @param passwordEncoder
-	 * @param articleRepository
+	 * @param roleRepository är ett RoleRepository-objekt som används för att spara roller i databasen.
+	 * @param userRepository är ett UserRepository-objekt som används för att spara användare i databasen.
+	 * @param passwordEncoder är ett PasswordEncoder-objekt som används för att kryptera lösenord.
+	 * @param articleRepository är ett ArticleRepository-objekt som används för att spara artiklar i databasen.
 	 */
 		@Bean
 		CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, ArticleRepository articleRepository) {
