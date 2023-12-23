@@ -6,9 +6,12 @@ import com.Molndal.WebShopService.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+
 
 import java.util.List;
 
@@ -75,13 +78,20 @@ public class ArticleController {
      * @param articleDetails är den artikel som innehåller den nya informationen.
      * @return den uppdaterade artikeln.
      */
-    @PatchMapping("/{id}")
+    @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/{id}")
     private ResponseEntity<Article> updateArticle(
             @PathVariable Long id,
             @RequestBody Article articleDetails
     ) {
-        return ResponseEntity.ok(articleService.updateArticle(id ,articleDetails));
+        try {
+            Article updatedArticle = articleService.updateArticle(id, articleDetails);
+            return ResponseEntity.ok(updatedArticle);
+        } catch (Exception e) {
+            // Handle exceptions, log them, and return an appropriate response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 
     /**
      * Denna metod används för att ta bort en artikel från databasen. Endast användare med rollen "ADMIN" har tillgång till denna metod.

@@ -1,5 +1,6 @@
 package com.Molndal.WebShopService.Models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -31,8 +32,7 @@ public class Cart {
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "article_id")
     )
-
-
+    @JsonManagedReference
     private Set<Article> articles;
 
     private String username;
