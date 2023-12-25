@@ -85,6 +85,9 @@ public class ArticleController {
     ) {
         try {
             Article updatedArticle = articleService.updateArticle(id, articleDetails);
+            if (updatedArticle == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
             return ResponseEntity.ok(updatedArticle);
         } catch (Exception e) {
             // Handle exceptions, log them, and return an appropriate response
