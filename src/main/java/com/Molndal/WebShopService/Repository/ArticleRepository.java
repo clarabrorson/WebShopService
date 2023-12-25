@@ -19,4 +19,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
      * @return en artikel med det specifika id:t.
      */
     Optional<Article> findArticleById(Long articleId);
+
 }

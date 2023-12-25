@@ -35,23 +35,23 @@ public class CartService {
      * @return carts är en lista med alla carts.
      * Endast admin har tillgång till denna funktion.
      */
-    public List<Cart> getCarts() {
-        List<Cart> carts = cartRepository.findAll();
 
-        for (Cart cart : carts) {
+    public Cart getCart() {
+        User currentUser = userService.getCurrentUser();
+        Cart cart = cartRepository.findByUser(currentUser);
+
+        if (cart != null) {
             // Load articles eagerly to include them in the response
             cart.getArticles().size();
 
-            // Check if the user is not null before accessing properties
+            // Set the username if the user is not null
             if (cart.getUser() != null) {
                 cart.setUsername(cart.getUser().getUsername());
             }
         }
 
-        return carts;
+        return cart;
     }
-
-
     /**
      * Denna metod används för att hämta en cart med ett specifikt id.
      * @param id är id:t för den cart som ska hämtas.
