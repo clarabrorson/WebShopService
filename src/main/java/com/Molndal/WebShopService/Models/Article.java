@@ -1,6 +1,7 @@
 package com.Molndal.WebShopService.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,8 +32,9 @@ public class Article {
      */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "history_id")
-    @JsonBackReference
+    @JsonIgnore
     private History history;
+
 
     /**
      * Konstruktor för att skapa ett Article-objekt.

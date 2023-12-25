@@ -1,6 +1,7 @@
 package com.Molndal.WebShopService.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,8 +18,9 @@ public class History {
     private Long id;
 
     @OneToMany(mappedBy = "history", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonIgnore
     private Set<Article> purchasedArticles = new HashSet<>();
+
 
 
     @ManyToOne(fetch = FetchType.EAGER)
