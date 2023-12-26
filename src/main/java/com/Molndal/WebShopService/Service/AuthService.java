@@ -47,7 +47,7 @@ public class AuthService {
      * Om det inte gör det, krypterar den lösenordet och sparar användaren i databasen.
      * @param username är användarnamnet för den användare som ska registreras.
      * @param password är lösenordet för den användare som ska registreras.
-     * @return ResponseEntity <?> är användaren som har registrerats.
+     * @return ResponseEntity är användaren som har registrerats.
      * Wildcard används för att returnera en response entity med vilken typ av body som helst.
      * Detta beror på att body kan vara antingen en sträng eller en användare.
      */
@@ -86,7 +86,7 @@ public class AuthService {
      * Om det inte gör det, returnerar den en response entity med en tom användare och en tom token.
      * @param username är användarnamnet för den användare som ska logga in.
      * @param password är lösenordet för den användare som ska logga in.
-     * @return ResponseEntity<LoginResponse> är en response entity med en användare och en token.
+     * @return ResponseEntity är en response entity med en användare och en token.
      * LoginResponse är en klass som innehåller en användare och en token.
      */
     public ResponseEntity<LoginResponse> login(String username, String password) {

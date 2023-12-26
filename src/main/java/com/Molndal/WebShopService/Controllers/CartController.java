@@ -47,7 +47,10 @@ public class CartController {
     /**
      * Denna metod används för att lägga till en artikel i kundkorgen. Artikeln hämtas från databasen med ett specifikt id.
      * Endpoint: POST /webshop/cart/{id}
+
 //     * @param cart är id:t för artikeln som ska läggas till i kundkorgen.
+
+
      * @return en Cart med den nya artikeln.
      */
     @PostMapping("/{id}")

@@ -139,7 +139,7 @@ public class CartService {
 
     /**
      * Den här metoden används för att hämta kundvagn till aktuell användare.
-     * @author Jafar Hussein
+     * @return userCart är kundvagnen för aktuell användare.
      */
     public Cart getCartForCurrentUser() {
         User currentUser = userService.getCurrentUser();
@@ -157,7 +157,6 @@ public class CartService {
      * Den här metoden utför en köpaktion genom att skapa en köphistorikpost.
      * Den länkar köpta artiklar till den, beräknar den totala kostnaden och sparar sedan köphistorikposten i databasen.
      * @param currentUser är den användare som är inloggad.
-     * @author Jafar Hussein
      */
 
 
@@ -196,7 +195,6 @@ public class CartService {
      * Den här metoden beräknar den totala kostnaden för en uppsättning artiklar.
      * @param articles är en uppsättning artiklar.
      * @return totalCost är den totala kostnaden för artiklarna i uppsättningen.
-     * @author Jafar Hussein
      */
     private int calculateTotalCost(Set<Article> articles) {
         return articles.stream()

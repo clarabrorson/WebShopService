@@ -60,18 +60,24 @@ public class ArticleService {
      * @param articleDetails är den artikel som innehåller den nya informationen.
      * @return den uppdaterade artikeln.
      */
-    //Bör lägga till felhantering i denna metod
     public Article updateArticle(Long id, Article articleDetails) {
 
-        //Hämtar ut den befintliga artikeln
-        Article existingArticle = getOneArticle(id);
+        if (articleRepository.existsById(id)) {
 
-        //Uppdaterar den befintliga artikeln
-        existingArticle.setName(articleDetails.getName());
-        existingArticle.setCost(articleDetails.getCost());
-        existingArticle.setDescription(articleDetails.getDescription());
+            //Hämtar ut den befintliga artikeln
+            Article existingArticle = getOneArticle(id);
 
-        return articleRepository.save(existingArticle);
+            //Uppdaterar den befintliga artikeln
+            existingArticle.setName(articleDetails.getName());
+            existingArticle.setCost(articleDetails.getCost());
+            existingArticle.setDescription(articleDetails.getDescription());
+
+            //Sparar den uppdaterade artikeln
+            return articleRepository.save(existingArticle);
+        }
+        else {
+            return null;
+        }
     }
 
     /**
