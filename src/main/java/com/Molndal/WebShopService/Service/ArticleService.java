@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 /**
  * Service klass används för att utföra operationer på tabellen articles.
  * Klassen innehåller metoder för att hämta, lägga till, uppdatera och ta bort artiklar från databasen.

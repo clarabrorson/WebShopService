@@ -78,8 +78,8 @@ public class ArticleController {
      * @param articleDetails är den artikel som innehåller den nya informationen.
      * @return den uppdaterade artikeln.
      */
-    @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/{id}")
-    private ResponseEntity<Article> updateArticle(
+    @PatchMapping("/{id}")
+    public ResponseEntity<Article> updateArticle(
             @PathVariable Long id,
             @RequestBody Article articleDetails
     ) {
@@ -104,7 +104,7 @@ public class ArticleController {
      * @return ett meddelande som indikerar om artikeln har tagits bort eller inte.
      */
     @DeleteMapping("/{id}")
-    private ResponseEntity<String> deleteArticle(
+    public ResponseEntity<String> deleteArticle(
         @PathVariable Long id
 ) {
     return ResponseEntity.ok(articleService.deleteOneArticle(id));
