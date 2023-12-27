@@ -18,7 +18,7 @@ public class History {
     private Long id;
 
     @OneToMany(mappedBy = "history", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
+//    @JsonIgnore
     private Set<Article> purchasedArticles = new HashSet<>();
 
 

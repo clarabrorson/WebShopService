@@ -53,13 +53,23 @@ public class HistoryController {
      * Användare med olika roller har tillgång till denna metod.
      * @return ResponseEntity med en lista av köpta artiklar om framgångsrikt, annars INTERNAL_SERVER_ERROR.
      */
+//    @GetMapping("/currentUserHistory")
+//    private ResponseEntity<List<Article>> getCurrentUserPurchasedArticles() {
+//        try {
+//            List<Article> purchasedArticles = historyService.getUserHistory();
+//            return ResponseEntity.ok(purchasedArticles);
+//        } catch (Exception e) {
+//            e.printStackTrace();  // Logga eller skriv ut detaljer om exception
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
     @GetMapping("/currentUserHistory")
-    private ResponseEntity<List<Article>> getCurrentUserPurchasedArticles() {
+    private ResponseEntity<List<History>> getCurrentUserPurchasedArticles() {
         try {
-            List<Article> purchasedArticles = historyService.getUserHistory();
-            return ResponseEntity.ok(purchasedArticles);
+            List<History> userHistories = historyService.getUserHistory();
+            return ResponseEntity.ok(userHistories);
         } catch (Exception e) {
-            e.printStackTrace();  // Logga eller skriv ut detaljer om exception
+            e.printStackTrace();  // Log or print exception details
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

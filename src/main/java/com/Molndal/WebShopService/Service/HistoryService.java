@@ -36,20 +36,31 @@ public class HistoryService {
     }
 
     // Hämta historik för den aktuella användaren
-    public List<Article> getUserHistory() {
-        // Hämta den inloggade användaren
+//    public List<Article> getUserHistory() {
+//        // Hämta den inloggade användaren
+//        User currentUser = userService.getCurrentUser();
+//
+//        if (currentUser != null) {
+//            // om användaren finns, hämta historik för användaren
+//            List<History> userHistory = historyRepository.findByUser(currentUser);
+//
+//            // Samla alla köpta artiklar från historiken
+//            List<Article> purchasedArticles = userHistory.stream()
+//                    .flatMap(history -> history.getPurchasedArticles().stream())
+//                    .collect(Collectors.toList());
+//
+//            return purchasedArticles;
+//        } else {
+//            // Hantera fallet när användaren inte finns
+//            return Collections.emptyList();
+//        }
+//    }
+    public List<History> getUserHistory() {
         User currentUser = userService.getCurrentUser();
 
         if (currentUser != null) {
             // om användaren finns, hämta historik för användaren
-            List<History> userHistory = historyRepository.findByUser(currentUser);
-
-            // Samla alla köpta artiklar från historiken
-            List<Article> purchasedArticles = userHistory.stream()
-                    .flatMap(history -> history.getPurchasedArticles().stream())
-                    .collect(Collectors.toList());
-
-            return purchasedArticles;
+            return historyRepository.findByUser(currentUser);
         } else {
             // Hantera fallet när användaren inte finns
             return Collections.emptyList();
