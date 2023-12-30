@@ -2,35 +2,51 @@
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+This project works as a backend server for a web-shop. It's a Spring Boot application that uses Spring Security to authenticate users and OAuth2 to authorize them.
+The application is connected to a MySQL database and uses Spring Data JPA to access the data.
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+The application will automatically create an admin account if it does not already exist. The username is *admin* and the password is *password*.
 
-## Table of Contents (Optional)
+**JavaDoc** can be found here: *WebShopServie/index.HTML*
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
+## Functionality
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
+**All users can:**
+- Browse through articles.
+
+**Logged-in users can:** 
+- Browse through articles, add them to their shopping cart and place orders.
+
+**Admins users can:** 
+- Do everything a regular user can do.
+- Create, read, update and delete articles.
+- See all current shopping carts.
+- See all historic shopping carts.
+- See all users.
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+Before you can start this project, you must follow these steps:
+
+- Download and install IntelliJ IDEA or your preferred IDE.
+- Download and install MySQL and MySQL Workbench.
+- Clone this repository to your local machine.
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+### 1. Set up the MySQL database:
+- Open MySQL Workbench.
+- Connect to your MySQL server.
+- Create a new schema for the application. You can do this by clicking on the "Create a new schema in the connected server" button, entering a name for the schema, and clicking "Apply".
+- Ensure that the *schema name*, *username*, and *password* in the application.properties file match your MySQL setup.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
+### 2. Start the WebShopService application:
+- Open your IDE and run the WebShopServiceApplication class to start the application.
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+### 3. Start the client application:
+- Open your IDE and run the Main class to start the application.
+- Follow the instructions in the console to use the web-shop.
+
 
 ## Dependencies:
 
@@ -45,37 +61,14 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 
 ## Credits
 
-List your collaborators, if any, with links to their GitHub profiles.
-* [member 1](https://github.com/person1)
-* [member 2](https://github.com/person1)
+This project is a collaboration between:
+- **[Clara Brorson](https://github.com/clarabrorson)**
+- **[Jafar Hussein](https://github.com/Jafar-Hussein)**
+- **[Fredrik Rinstad](https://github.com/fringston)**
 
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-* [junit jupiter 5](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter/5.7.0)
-
-If you followed tutorials, include links to those here as well.
 
 ## License
 
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [MIT License](https://choosealicense.com/licenses/mit/).
+**[MIT License](https://choosealicense.com/licenses/mit/)**
 
 ---
-
-🏆 The previous sections are the bare minimum, and your project will ultimately determine the content of this document. You might also want to consider adding the following sections.
-
-## Badges
-
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-
-Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
-
-## Features
-
-If your project has a lot of features, list them here.
-
-## How to Contribute
-
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
-
-## Tests
-
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
