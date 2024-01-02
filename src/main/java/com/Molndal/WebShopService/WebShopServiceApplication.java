@@ -56,16 +56,26 @@ public class WebShopServiceApplication {
 				userRepository.save(admin);
 
 				//Skapar några artiklar och sparar i databasen
-				Article article = new Article("Banan", 10, "En gul frukt", 50);
-				Article article2 = new Article("Äpple", 5, "En röd frukt", 20);
-				Article article3 = new Article("Apelsin", 7, "En orange frukt", 30);
-				Article article4 = new Article("Päron", 8, "En grön frukt", 40);
-				Article article5 = new Article("Kiwi", 9, "En brun frukt", 60);
-				Article article6 = new Article("Mango", 11, "En gul frukt", 70);
-				Article article7 = new Article("Ananas", 12, "En gul frukt", 80);
-				Article article8 = new Article("Vattenmelon", 13, "En grön frukt", 90);
-				Article article9 = new Article("Citron", 14, "En gul frukt", 100);
-				Article article10 = new Article("Papaya", 15, "En gul frukt", 110);
+				Article article = new Article("Banana, 1kg", 10, "A yellow fruit", 85);
+				Article article2 = new Article("Apple, 1kg", 20, "A red fruit", 170);
+				Article article3 = new Article("Orange, 1kg", 30, "An orange fruit", 72);
+				Article article4 = new Article("Pear, 1kg", 40, "A green fruit", 56);
+				Article article5 = new Article("Pineapple, 1kg", 50, "A yellow fruit", 11);
+				Article article6 = new Article("Strawberry, 1kg", 60, "A red berry", 50);
+				Article article7 = new Article("Blueberry, 1kg", 70, "A blue berry", 25);
+				Article article8 = new Article("Raspberry, 1kg", 80, "A red berry", 36);
+				Article article9 = new Article("Lemon, 1kg", 90, "A yellow fruit", 45);
+				Article article10 = new Article("Kiwi, 1kg", 100, "A green fruit", 30);
+				Article article11 = new Article("Mango, 1kg", 110, "A yellow fruit", 20);
+				Article article12 = new Article("Watermelon, 1kg", 120, "A green fruit", 10);
+				Article article13 = new Article("Grape, 1kg", 130, "A purple fruit", 15);
+				Article article14 = new Article("Cherry, 1kg", 140, "A red fruit", 18);
+				Article article15 = new Article("Peach, 1kg", 150, "A yellow fruit", 9);
+				Article article16 = new Article("Plum, 1kg", 160, "A purple fruit", 12);
+				Article article17 = new Article("Apricot, 1kg", 170, "An orange fruit", 8);
+				Article article18 = new Article("Pomegranate, 1kg", 180, "A red fruit", 6);
+				Article article19 = new Article("Cantaloupe, 1kg", 190, "A green fruit", 5);
+				Article article20 = new Article("Honeydew, 1kg", 200, "A green fruit", 4);
 
 				articleRepository.save(article);
 				articleRepository.save(article2);
@@ -77,6 +87,16 @@ public class WebShopServiceApplication {
 				articleRepository.save(article8);
 				articleRepository.save(article9);
 				articleRepository.save(article10);
+				articleRepository.save(article11);
+				articleRepository.save(article12);
+				articleRepository.save(article13);
+				articleRepository.save(article14);
+				articleRepository.save(article15);
+				articleRepository.save(article16);
+				articleRepository.save(article17);
+				articleRepository.save(article18);
+				articleRepository.save(article19);
+				articleRepository.save(article20);
 
 			};
 	}
