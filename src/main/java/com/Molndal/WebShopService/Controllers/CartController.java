@@ -29,7 +29,7 @@ public class CartController {
      * @return en lista med alla Carts.
      */
     @GetMapping("")
-    private Cart getCart() {
+    private List <Cart> getCart() {
         return cartService.getCart();
     }
 

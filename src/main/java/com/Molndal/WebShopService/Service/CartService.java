@@ -36,21 +36,8 @@ public class CartService {
      * Endast admin har tillgång till denna funktion.
      */
 
-    public Cart getCart() {
-        User currentUser = userService.getCurrentUser();
-        Cart cart = cartRepository.findByUser(currentUser);
-
-        if (cart != null) {
-            // Load articles eagerly to include them in the response
-            cart.getArticles().size();
-
-            // Set the username if the user is not null
-            if (cart.getUser() != null) {
-                cart.setUsername(cart.getUser().getUsername());
-            }
-        }
-
-        return cart;
+    public List<Cart> getCart() {
+        return cartRepository.findAll();
     }
     /**
      * Denna metod används för att hämta en cart med ett specifikt id.
