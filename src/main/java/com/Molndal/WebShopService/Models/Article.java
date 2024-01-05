@@ -1,12 +1,11 @@
 package com.Molndal.WebShopService.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
 /**
  * Denna klass används för att skapa ett Article-objekt
  *
@@ -25,7 +24,6 @@ public class Article {
     private String name;
     private int cost;
     private String description;
-    private int quantity;
 
     /**
      * Inköpshistorik kopplad till artikeln.
@@ -42,13 +40,11 @@ public class Article {
      * @param name är namnet på artikeln.
      * @param cost är priset på artikeln.
      * @param description är beskrivningen av artikeln.
-     * @param quantity är antalet artiklar som finns i lager.
      */
-    public Article(String name, int cost, String description, int quantity) {
+    public Article(String name, int cost, String description) {
         this.name = name;
         this.cost = cost;
         this.description = description;
-        this.quantity = quantity;
     }
 
     /**

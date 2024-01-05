@@ -63,19 +63,12 @@ public class CartController {
 
     /**
      * Denna metod används för att uppdatera antalet artiklar i kundkorgen.
-     * Endpoint: PATCH /webshop/cart/{cartId}/articles/{articleId}
-     * @param cartId är id:t för den Cart som artikeln ska uppdateras i.
-     * @param articleId är id:t för den artikel som ska uppdateras.
-     * @param quantity = antalet av artiklar man vill uppdatera till.
+     * Endpoint: PATCH /webshop/cart
      * @return en Cart med uppdaterat antal artiklar.
      */
-    @PatchMapping("/{cartId}/articles/{articleId}")
-    public ResponseEntity<Cart> updateArticleCount(
-            @PathVariable Long cartId,
-            @PathVariable Long articleId,
-            @RequestParam int quantity) throws ChangeSetPersister.NotFoundException {
-        Cart updatedCart = cartService.updateArticleCount(cartId, articleId, quantity);
-        return ResponseEntity.ok(updatedCart);
+    @PatchMapping("")
+    public ResponseEntity<Cart> updateArticleCount() {
+        return null;
     }
 
     /**

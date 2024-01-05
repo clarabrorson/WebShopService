@@ -50,24 +50,10 @@ public class CartService {
 
     /**
      * Denna metod används för att uppdatera antalet artiklar i en cart.
-     * @param cartId är id:t för den cart som ska uppdateras.
-     * @param articleId är id:t för den artikel som ska uppdateras.
-     * @param quantity är det nya antalet artiklar.
      * @return cart med den uppdaterade artikeln.
      */
-
-    public Cart updateArticleCount(Long cartId, Long articleId, int quantity) throws ChangeSetPersister.NotFoundException {
-        Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
-        Set<Article> articles = cart.getArticles();
-
-        Article article = articles.stream()
-                .filter(a -> a.getId().equals(articleId))
-                .findFirst()
-                .orElseThrow(ChangeSetPersister.NotFoundException::new);
-
-        article.setQuantity(quantity);
-
-        return cartRepository.save(cart);
+    public Cart updateArticleCount()  {
+        return null;
     }
 
     /**
@@ -145,8 +131,6 @@ public class CartService {
      * Den länkar köpta artiklar till den, beräknar den totala kostnaden och sparar sedan köphistorikposten i databasen.
      * @param currentUser är den användare som är inloggad.
      */
-
-
     public void purchaseCart(User currentUser) {
         // Fetch the user's cart
         Cart cart = cartRepository.findByUser(currentUser);
