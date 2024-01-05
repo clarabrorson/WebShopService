@@ -1,9 +1,6 @@
 package com.Molndal.WebShopService.Service;
 
-import com.Molndal.WebShopService.Models.Article;
-import com.Molndal.WebShopService.Models.Cart;
-import com.Molndal.WebShopService.Models.History;
-import com.Molndal.WebShopService.Models.User;
+import com.Molndal.WebShopService.Models.*;
 import com.Molndal.WebShopService.Repository.ArticleRepository;
 import com.Molndal.WebShopService.Repository.CartRepository;
 import com.Molndal.WebShopService.Repository.HistoryRepository;
@@ -64,17 +61,17 @@ public class CartService {
      */
     public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
         Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
-        Set<Article> articles = cart.getArticles();
+        Set<CartItem> cartItems = cart.getCartItems();
 
-        articles = articles.stream()
-                .filter(article -> !article.getId().equals(articleId))
+        cartItems = cartItems.stream()
+                .filter(cartItem -> !cartItem.getArticle().getId().equals(articleId))
                 .collect(Collectors.toSet());
 
-        if (articles.size() == cart.getArticles().size()) {
+        if (cartItems.size() == cart.getCartItems().size()) {
             throw new ChangeSetPersister.NotFoundException();
         }
 
-        cart.setArticles(articles);
+        cart.setCartItems(cartItems);
         return cartRepository.save(cart);
     }
 

@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * Representerar en användare i webbshop-applikationen.
  * Implementerar Spring Security UserDetails-gränssnittet för autentisering och auktorisering.
@@ -128,10 +130,18 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
     @JsonIgnore
-    public Set<Article> getArticles() { // skapar en lista med artiklar som användaren har köpt
-        return this.cart != null ? this.cart.getArticles() : new HashSet<>();
+    public Set<Article> getCartItems() {
+        if (this.cart != null) {
+            return this.cart.getCartItems().stream()
+                    .map(CartItem::getArticle)
+                    .collect(Collectors.toSet());
+        } else {
+            return new HashSet<>();
+        }
     }
+
     public Long getCartId() { // hämtar kundvagnens id om den finns
         return this.cart != null ? this.cart.getId() : null;
     }
