@@ -24,20 +24,24 @@ public class Cart {
     private Long id;
 
     @OneToOne
-
     private User user;
-    @ManyToMany // Many-to-Many-relation med Article
-    @JoinTable(
-            name = "cart_article_junction",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "article_id")
-    )
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Article> articles;
+    private Set<CartItem> cartItems;
 
     private String username;
+
     @JsonProperty("username")
     public String getUsername() {
         return user != null ? user.getUsername() : null;
+    }
+
+    public Set<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Set<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 }

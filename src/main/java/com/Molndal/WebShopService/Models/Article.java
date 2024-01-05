@@ -1,10 +1,13 @@
 package com.Molndal.WebShopService.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 /**
  * Denna klass används för att skapa ett Article-objekt
@@ -21,9 +24,14 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private int cost;
     private String description;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private Set<CartItem> cartItems;
 
     /**
      * Inköpshistorik kopplad till artikeln.
