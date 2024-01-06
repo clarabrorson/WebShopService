@@ -90,61 +90,7 @@ public class CartService {
      * @param id          är id:t för den artikel som ska läggas till.
      * @param currentUser är den användare som är inloggad.
      */
-    //Gamla addArticleToCartFromDB-metoden
-    /*public void addArticleToCartFromDB(Long id, User currentUser) {
-        Cart cart = currentUser.getCart();
-
-        if (cart == null) {
-            cart = new Cart();
-            cart.setUser(currentUser);
-            currentUser.setCart(cart);
-        }
-        Set<Article> articles = cart.getArticles();
-
-        Article articleToAdd = articleRepository.findById(id).orElse(null);
-
-        if (articleToAdd != null) {
-
-            if (articles == null) {
-                articles = new HashSet<>();
-            }
-
-            if (!articles.contains(articleToAdd)) {
-                articles.add(articleToAdd);
-                cart.setArticles(articles);
-                cartRepository.save(cart);
-                userRepository.save(currentUser);
-            }
-        }
-    }*/
-    //Nya addArticleToCartFromDB-metoden
-    /*
-    public void addArticleToCartFromDB(Long id, User currentUser) {
-        Cart cart = currentUser.getCart();
-
-        if (cart == null) {
-            cart = new Cart();
-            cart.setUser(currentUser);
-            currentUser.setCart(cart);
-        }
-
-        Article articleToAdd = articleRepository.findById(id).orElse(null);
-
-        if (articleToAdd != null) {
-            CartItem cartItem = new CartItem();
-            cartItem.setCart(cart);
-            cartItem.setArticle(articleToAdd);
-            cartItem.setQuantity(1); // or any other initial quantity
-
-            cart.getCartItems().add(cartItem);
-            cartItemRepository.save(cartItem); // Save the CartItem instance
-
-            cartRepository.save(cart);
-            userRepository.save(currentUser);
-        }
-    } */
-
-    //Ännu nyare metod
+    //Ny metod
     public void addArticleToCartFromDB(Long id, int quantity, User currentUser) {
         Cart cart = currentUser.getCart();
 
@@ -237,8 +183,9 @@ public class CartService {
             }
         }
     }*/
+
     //Nya purchaseCart-metoden
-    public void purchaseCart(User currentUser) {
+    /*public void purchaseCart(User currentUser) {
         // Fetch the user's cart
         Cart cart = cartRepository.findByUser(currentUser);
 
@@ -270,6 +217,44 @@ public class CartService {
 
                 // Clear the cart items
                 cart.setCartItems(new HashSet<>());
+                cartRepository.save(cart);
+            }
+        }
+    } */
+
+    //Ännu nyare purchaseCart-metoden
+    public void purchaseCart(User currentUser) {
+        // Fetch the user's cart
+        Cart cart = cartRepository.findByUser(currentUser);
+
+        if (cart != null) {
+
+            Set<CartItem> cartItems = cart.getCartItems();
+
+            if (!cartItems.isEmpty()) {
+
+                History purchaseHistory = new History();
+                purchaseHistory.setUser(currentUser);
+
+                purchaseHistory.getPurchasedArticles().clear();
+
+                // Add each Article in CartItem to the purchase history
+                for (CartItem cartItem : cartItems) {
+                    Article article = cartItem.getArticle();
+                    purchaseHistory.getPurchasedArticles().add(article);
+                    article.setHistory(purchaseHistory);
+                }
+
+                // Calculate the total cost based on CartItem quantity and Article cost
+                int totalCost = cartItems.stream()
+                        .mapToInt(cartItem -> cartItem.getArticle().getCost() * cartItem.getQuantity())
+                        .sum();
+                purchaseHistory.setTotalCost(totalCost);
+
+                historyRepository.save(purchaseHistory);
+
+                // Clear the cart items
+                cartItems.clear();
                 cartRepository.save(cart);
             }
         }
