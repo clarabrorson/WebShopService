@@ -142,6 +142,11 @@ public class User implements UserDetails {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
     public Long getCartId() { // hämtar kundvagnens id om den finns
         return this.cart != null ? this.cart.getId() : null;
     }

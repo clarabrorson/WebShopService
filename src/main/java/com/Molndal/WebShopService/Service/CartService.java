@@ -118,6 +118,7 @@ public class CartService {
         }
     }*/
     //Nya addArticleToCartFromDB-metoden
+    /*
     public void addArticleToCartFromDB(Long id, User currentUser) {
         Cart cart = currentUser.getCart();
 
@@ -134,6 +135,32 @@ public class CartService {
             cartItem.setCart(cart);
             cartItem.setArticle(articleToAdd);
             cartItem.setQuantity(1); // or any other initial quantity
+
+            cart.getCartItems().add(cartItem);
+            cartItemRepository.save(cartItem); // Save the CartItem instance
+
+            cartRepository.save(cart);
+            userRepository.save(currentUser);
+        }
+    } */
+
+    //Ännu nyare metod
+    public void addArticleToCartFromDB(Long id, int quantity, User currentUser) {
+        Cart cart = currentUser.getCart();
+
+        if (cart == null) {
+            cart = new Cart();
+            cart.setUser(currentUser);
+            currentUser.setCart(cart);
+        }
+
+        Article articleToAdd = articleRepository.findById(id).orElse(null);
+
+        if (articleToAdd != null) {
+            CartItem cartItem = new CartItem();
+            cartItem.setCart(cart);
+            cartItem.setArticle(articleToAdd);
+            cartItem.setQuantity(quantity); // Set the quantity
 
             cart.getCartItems().add(cartItem);
             cartItemRepository.save(cartItem); // Save the CartItem instance

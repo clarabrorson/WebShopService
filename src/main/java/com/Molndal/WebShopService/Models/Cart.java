@@ -44,4 +44,8 @@ public class Cart {
     public void setCartItems(Set<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

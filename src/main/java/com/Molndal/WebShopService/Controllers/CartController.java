@@ -2,6 +2,7 @@ package com.Molndal.WebShopService.Controllers;
 
 import com.Molndal.WebShopService.Models.Cart;
 import com.Molndal.WebShopService.Models.User;
+import com.Molndal.WebShopService.Service.AddToCartRequest;
 import com.Molndal.WebShopService.Service.CartService;
 import com.Molndal.WebShopService.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Den här klassen används för att hantera förfrågningar till webshop/cart från klienten till API:et.
@@ -53,10 +55,29 @@ public class CartController {
 
      * @return en Cart med den nya artikeln.
      */
-    @PostMapping("/{id}")
+    //Gammal metod
+    /*@PostMapping("/{id}")
     private Cart addArticleToCart(@PathVariable Long id){
         User currentUser = userService.getCurrentUser();
         cartService.addArticleToCartFromDB(id, currentUser);
+        // Ensure you fetch the updated cart associated with the current user
+        return cartService.getCartForCurrentUser();
+    } */
+
+    //Ny metod
+    /*@PostMapping("/{id}")
+    private Cart addArticleToCart(@PathVariable Long id, @RequestBody int quantity){
+        User currentUser = userService.getCurrentUser();
+        cartService.addArticleToCartFromDB(id, quantity, currentUser);
+        // Ensure you fetch the updated cart associated with the current user
+        return cartService.getCartForCurrentUser();
+    }*/
+
+    //Ännu nyare metod
+    @PostMapping("/{id}")
+    private Cart addArticleToCart(@PathVariable Long id, @RequestBody AddToCartRequest request){
+        User currentUser = userService.getCurrentUser();
+        cartService.addArticleToCartFromDB(id, request.getQuantity(), currentUser);
         // Ensure you fetch the updated cart associated with the current user
         return cartService.getCartForCurrentUser();
     }
