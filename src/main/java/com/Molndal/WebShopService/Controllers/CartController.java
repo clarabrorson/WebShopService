@@ -49,31 +49,10 @@ public class CartController {
     /**
      * Denna metod används för att lägga till en artikel i kundkorgen. Artikeln hämtas från databasen med ett specifikt id.
      * Endpoint: POST /webshop/cart/{id}
-
-//     * @param cart är id:t för artikeln som ska läggas till i kundkorgen.
-
-
+     * @param id är id:t för artikeln som ska läggas till i kundkorgen.
      * @return en Cart med den nya artikeln.
      */
-    //Gammal metod
-    /*@PostMapping("/{id}")
-    private Cart addArticleToCart(@PathVariable Long id){
-        User currentUser = userService.getCurrentUser();
-        cartService.addArticleToCartFromDB(id, currentUser);
-        // Ensure you fetch the updated cart associated with the current user
-        return cartService.getCartForCurrentUser();
-    } */
-
     //Ny metod
-    /*@PostMapping("/{id}")
-    private Cart addArticleToCart(@PathVariable Long id, @RequestBody int quantity){
-        User currentUser = userService.getCurrentUser();
-        cartService.addArticleToCartFromDB(id, quantity, currentUser);
-        // Ensure you fetch the updated cart associated with the current user
-        return cartService.getCartForCurrentUser();
-    }*/
-
-    //Ännu nyare metod
     @PostMapping("/{id}")
     private Cart addArticleToCart(@PathVariable Long id, @RequestBody AddToCartRequest request){
         User currentUser = userService.getCurrentUser();

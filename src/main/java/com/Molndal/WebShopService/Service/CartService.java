@@ -152,77 +152,7 @@ public class CartService {
      *
      * @param currentUser är den användare som är inloggad.
      */
-    //Gamla purchaseCart-metoden
-    /*public void purchaseCart(User currentUser) {
-        // Fetch the user's cart
-        Cart cart = cartRepository.findByUser(currentUser);
-
-        if (cart != null) {
-
-            Set<Article> articlesInCart = cart.getArticles();
-
-            if (!articlesInCart.isEmpty()) {
-
-                History purchaseHistory = new History();
-                purchaseHistory.setUser(currentUser);
-
-                purchaseHistory.getPurchasedArticles().clear();
-
-                purchaseHistory.getPurchasedArticles().addAll(articlesInCart);
-
-                for (Article article : articlesInCart) {
-                    article.setHistory(purchaseHistory);
-                }
-
-                purchaseHistory.setTotalCost(calculateTotalCost(articlesInCart));
-
-                historyRepository.save(purchaseHistory);
-
-                cart.setArticles(new HashSet<>());
-                cartRepository.save(cart);
-            }
-        }
-    }*/
-
-    //Nya purchaseCart-metoden
-    /*public void purchaseCart(User currentUser) {
-        // Fetch the user's cart
-        Cart cart = cartRepository.findByUser(currentUser);
-
-        if (cart != null) {
-
-            Set<CartItem> cartItems = cart.getCartItems();
-
-            if (!cartItems.isEmpty()) {
-
-                History purchaseHistory = new History();
-                purchaseHistory.setUser(currentUser);
-
-                purchaseHistory.getPurchasedArticles().clear();
-
-                // Add each Article in CartItem to the purchase history
-                for (CartItem cartItem : cartItems) {
-                    Article article = cartItem.getArticle();
-                    purchaseHistory.getPurchasedArticles().add(article);
-                    article.setHistory(purchaseHistory);
-                }
-
-                // Calculate the total cost based on CartItem quantity and Article cost
-                int totalCost = cartItems.stream()
-                        .mapToInt(cartItem -> cartItem.getArticle().getCost() * cartItem.getQuantity())
-                        .sum();
-                purchaseHistory.setTotalCost(totalCost);
-
-                historyRepository.save(purchaseHistory);
-
-                // Clear the cart items
-                cart.setCartItems(new HashSet<>());
-                cartRepository.save(cart);
-            }
-        }
-    } */
-
-    //Ännu nyare purchaseCart-metoden
+    //Ny purchaseCart-metod
     public void purchaseCart(User currentUser) {
         // Fetch the user's cart
         Cart cart = cartRepository.findByUser(currentUser);
