@@ -30,7 +30,7 @@ public class Article {
     private String description;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<CartItem> cartItems;
 
     /**

@@ -2,6 +2,8 @@ package com.Molndal.WebShopService.Service;
 
 import com.Molndal.WebShopService.Models.*;
 import com.Molndal.WebShopService.Repository.*;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
@@ -49,17 +51,65 @@ public class CartService {
      * @return cart med det specifika id:t.
      */
     public Cart getCartById(Long id) {
-        return cartRepository.findById(id).orElse(null);
+        Cart cart = cartRepository.findById(id).orElse(null);
+
+        if (cart != null) {
+            // Initialize total cost
+            int totalCost = 0;
+
+            // Ensure that the articles are loaded for each cartItem, this might involve changing lazy loading to eager or using JOIN FETCH in the query (not shown here)
+            for (CartItem cartItem : cart.getCartItems()) {
+                Article article = cartItem.getArticle(); // This assumes that the article is eagerly fetched or properly handled if lazy-loaded
+                if (article != null) {
+                    // Calculate the cost for this item
+                    int itemCost = article.getCost() * cartItem.getQuantity();
+                    totalCost += itemCost;
+                }
+            }
+
+            // Set the total cost in the Cart object
+            cart.setTotalCost(totalCost);
+        }
+
+        return cart; // Return the cart (which will be null if not found or updated with total cost if found)
     }
+
+
 
     /**
      * Denna metod används för att uppdatera antalet artiklar i en cart.
-     *
+     * @param cartId är id:t för den cart som artikeln ska läggas till i.
+     * @param articleId är id:t för den artikel som ska läggas till.
+     * @param newQuantity är antalet artiklar som ska läggas till.
      * @return cart med den uppdaterade artikeln.
      */
-    public Cart updateArticleCount() {
-        return null;
+    @Transactional
+    public Cart updateArticleCount(Long cartId, Long articleId, int newQuantity) {
+        // sparar id för varukorgen i en variabel
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
+
+        // hitar cart item i carten som har samma article id som den article som ska uppdateras
+        CartItem cartItemToUpdate = cart.getCartItems().stream()
+                .filter(cartItem -> cartItem.getArticle().getId().equals(articleId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Article not found in cart"));
+
+        // Uppdaterar antalet artiklar i cart item
+        cartItemToUpdate.setQuantity(newQuantity);
+
+        // Sparar cart item
+        cartItemRepository.save(cartItemToUpdate);
+
+        // Beräknar den totala kostnaden för varukorgen
+        int totalCost = cart.getCartItems().stream()
+                .mapToInt(item -> item.getArticle().getCost() * item.getQuantity())
+                .sum();
+        cart.setTotalCost(totalCost);
+
+        // sparar varukorgen
+        return cartRepository.save(cart);
     }
+
 
     /**
      * Denna metod används för att ta bort en artikel från en cart.
@@ -121,19 +171,6 @@ public class CartService {
      *
      * @return userCart är kundvagnen för aktuell användare.
      */
-    //Gamla getCartForCurrentUser-metoden
-    /*public Cart getCartForCurrentUser() {
-        User currentUser = userService.getCurrentUser();
-        Cart userCart = currentUser != null ? currentUser.getCart() : null;
-
-        if (userCart != null) {
-            // Load articles eagerly to include them in the response
-            userCart.getArticles().size();
-        }
-
-        return userCart;
-    }*/
-    //Nya getCartForCurrentUser-metoden
     public Cart getCartForCurrentUser() {
         User currentUser = userService.getCurrentUser();
         Cart userCart = currentUser != null ? currentUser.getCart() : null;
@@ -204,9 +241,9 @@ public class CartService {
     }*/
 
     //Nya calculateTotalCost-metoden
-    private int calculateTotalCost(Set<CartItem> cartItems) {
-        return cartItems.stream()
-                .mapToInt(cartItem -> cartItem.getArticle().getCost() * cartItem.getQuantity())
-                .sum();
-    }
+//    private int calculateTotalCost(Set<CartItem> cartItems) {
+//        return cartItems.stream()
+//                .mapToInt(cartItem -> cartItem.getArticle().getCost() * cartItem.getQuantity())
+//                .sum();
+//    }
 }

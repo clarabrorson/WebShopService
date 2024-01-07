@@ -5,8 +5,10 @@ import com.Molndal.WebShopService.Models.User;
 import com.Molndal.WebShopService.Service.AddToCartRequest;
 import com.Molndal.WebShopService.Service.CartService;
 import com.Molndal.WebShopService.Service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,10 +44,16 @@ public class CartController {
      * @return en Cart med det specifika id:t.
      */
     @GetMapping("/{id}")
-    private Cart getCartById(@PathVariable Long id) {
-        return cartService.getCartById(id);
-    }
+    public ResponseEntity<Cart> getCartById(@PathVariable Long id) {
+        Cart cart = cartService.getCartById(id);
 
+        if (cart != null) {
+            // Assuming calculateTotalCost is already setting the total cost in the service
+            return ResponseEntity.ok(cart);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     /**
      * Denna metod används för att lägga till en artikel i kundkorgen. Artikeln hämtas från databasen med ett specifikt id.
      * Endpoint: POST /webshop/cart/{id}
@@ -64,11 +72,21 @@ public class CartController {
     /**
      * Denna metod används för att uppdatera antalet artiklar i kundkorgen.
      * Endpoint: PATCH /webshop/cart
+     * @param cartId är id:t för den Cart som artikeln ska läggas till i.
+     * @param articleId är id:t för den artikel som ska läggas till.
+     * @param quantity är antalet artiklar som ska läggas till.
      * @return en Cart med uppdaterat antal artiklar.
      */
-    @PatchMapping("")
-    public ResponseEntity<Cart> updateArticleCount() {
-        return null;
+    @PatchMapping("/{cartId}/articles/{articleId}/quantity/{quantity}")
+    public ResponseEntity<Cart> updateArticleCount(@PathVariable Long cartId, @PathVariable Long articleId, @PathVariable int quantity) throws ChangeSetPersister.NotFoundException {
+        try {
+            Cart updatedCart = cartService.updateArticleCount(cartId, articleId, quantity);
+            return ResponseEntity.ok(updatedCart);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     /**

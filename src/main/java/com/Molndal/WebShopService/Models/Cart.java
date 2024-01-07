@@ -31,6 +31,7 @@ public class Cart {
     private Set<CartItem> cartItems;
 
     private String username;
+    private int totalCost;
 
     @JsonProperty("username")
     public String getUsername() {

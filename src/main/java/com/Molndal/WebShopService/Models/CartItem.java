@@ -25,9 +25,9 @@ public class CartItem {
     @JsonBackReference
     private Cart cart;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Article article;
 
     private int quantity;
