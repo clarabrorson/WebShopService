@@ -3,6 +3,7 @@ package com.Molndal.WebShopService.Controllers;
 import com.Molndal.WebShopService.Models.Article;
 import com.Molndal.WebShopService.Repository.ArticleRepository;
 import com.Molndal.WebShopService.Service.ArticleService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -63,7 +64,16 @@ public class ArticleController {
      * @param article är den artikel som ska läggas till i databasen.
      * @return den artikel som har lagts till i databasen.
      */
-    @PostMapping("")
+    //Gammal metod
+    /*@PostMapping("")
+    private ResponseEntity<Article> addArticle(
+            @RequestBody Article article
+    ) {
+        return ResponseEntity.ok(articleService.addNewArticle(article));
+    } */
+
+    //Ny metod
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     private ResponseEntity<Article> addArticle(
             @RequestBody Article article
     ) {
