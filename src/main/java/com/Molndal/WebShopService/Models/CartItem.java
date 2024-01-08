@@ -2,6 +2,7 @@ package com.Molndal.WebShopService.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class CartItem {
     @JsonIgnore
     @JsonBackReference
     private Cart cart;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id")

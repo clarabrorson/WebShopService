@@ -2,6 +2,7 @@ package com.Molndal.WebShopService.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,8 @@ public class Article {
     private String description;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     private Set<CartItem> cartItems;
 
     /**
