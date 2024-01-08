@@ -15,7 +15,7 @@ The application will automatically create an admin account if it does not alread
 - Browse through articles.
 
 **Logged-in users can:** 
-- Browse through articles, add them to their shopping cart and place orders.
+- Browse through articles, add articles to their shopping cart, choose article quantity and place orders.
 
 **Admins users can:** 
 - Do everything a regular user can do.
@@ -57,6 +57,7 @@ Before you can start this project, you must follow these steps:
 - Spring Security
 - OAuth2 Client
 - Spring Boot DevTools
+- org.json
 
 
 ## Credits
