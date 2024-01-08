@@ -118,22 +118,38 @@ public class CartService {
      * @param articleId är id:t för den artikel som ska tas bort.
      * @return cart med den borttagna artikeln.
      */
+//    public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
+//        Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
+//        Set<CartItem> cartItems = cart.getCartItems();
+//
+//        cartItems = cartItems.stream()
+//                .filter(cartItem -> !cartItem.getArticle().getId().equals(articleId))
+//                .collect(Collectors.toSet());
+//
+//        if (cartItems.size() == cart.getCartItems().size()) {
+//            throw new ChangeSetPersister.NotFoundException();
+//        }
+//
+//        cart.setCartItems(cartItems);
+//        return cartRepository.save(cart);
+//    }
+    @Transactional
     public Cart deleteArticleFromCart(Long cartId, Long articleId) throws ChangeSetPersister.NotFoundException {
-        Cart cart = cartRepository.findById(cartId).orElseThrow(ChangeSetPersister.NotFoundException::new);
-        Set<CartItem> cartItems = cart.getCartItems();
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
 
-        cartItems = cartItems.stream()
-                .filter(cartItem -> !cartItem.getArticle().getId().equals(articleId))
-                .collect(Collectors.toSet());
+        // Directly modify the existing collection of cart items
+        boolean itemRemoved = cart.getCartItems().removeIf(cartItem ->
+                cartItem.getArticle().getId().equals(articleId)
+        );
 
-        if (cartItems.size() == cart.getCartItems().size()) {
+        if (!itemRemoved) {
+            // If no item was removed, it means the article was not found in the cart
             throw new ChangeSetPersister.NotFoundException();
         }
 
-        cart.setCartItems(cartItems);
+        // Save the cart after modification to persist changes
         return cartRepository.save(cart);
     }
-
     /**
      * Denna metod används för att lägga till en artikel i en cart.
      *
