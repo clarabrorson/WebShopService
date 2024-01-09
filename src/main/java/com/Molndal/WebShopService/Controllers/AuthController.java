@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/webshop/auth")
 public class AuthController {
-
     @Autowired
     private AuthService authService;
 
