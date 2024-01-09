@@ -32,7 +32,7 @@ public class ArticleController {
     private ArticleService articleService;
 
     /**
-     * Denna metod används för att hämta alla artiklar från databasen. Alla har tillgång till denna metod, även de som inte är inloggade
+     * Denna metod används för att hämta alla artiklar från databasen. Alla har tillgång till denna metod, även de som inte är inloggade.
      * Endpoint: GET /webshop/articles
      *
      * @return en lista med alla artiklar.
@@ -44,7 +44,7 @@ public class ArticleController {
     }
 
     /**
-     * Denna metod används för att hämta en artikel från databasen med ett specifikt id. Alla har tillgång till denna metod, även de som inte är inloggade
+     * Denna metod används för att hämta en artikel från databasen med ett specifikt id.
      * Endpoint: GET /webshop/articles/{id}
      *
      * @param id är id:t för den artikel som ska hämtas.
@@ -64,15 +64,6 @@ public class ArticleController {
      * @param article är den artikel som ska läggas till i databasen.
      * @return den artikel som har lagts till i databasen.
      */
-    //Gammal metod
-    /*@PostMapping("")
-    private ResponseEntity<Article> addArticle(
-            @RequestBody Article article
-    ) {
-        return ResponseEntity.ok(articleService.addNewArticle(article));
-    } */
-
-    //Ny metod
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     private ResponseEntity<Article> addArticle(
             @RequestBody Article article
@@ -100,11 +91,9 @@ public class ArticleController {
             }
             return ResponseEntity.ok(updatedArticle);
         } catch (Exception e) {
-            // Handle exceptions, log them, and return an appropriate response
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
     /**
      * Denna metod används för att ta bort en artikel från databasen. Endast användare med rollen "ADMIN" har tillgång till denna metod.

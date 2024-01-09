@@ -1,9 +1,6 @@
 package com.Molndal.WebShopService.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +9,11 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 /**
- * Denna klass används för att skapa ett Article-objekt
+ * Denna klass används för att skapa ett Article-objekt.
+ * Klassen används för att skapa en tabell i databasen med hjälp av JPA.
+ * Varje artikel har ett id, ett namn, ett pris och en beskrivning.
+ * Varje artikel kan ha flera CartItem-objekt kopplade till sig.
+ * Varje artikel kan ha flera History-objekt kopplade till sig.
  *
  * @author Fredrik
  */
@@ -31,18 +32,13 @@ public class Article {
     private String description;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JsonBackReference
     @JsonIgnore
     private Set<CartItem> cartItems;
 
-    /**
-     * Inköpshistorik kopplad till artikeln.
-     */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "history_id")
     @JsonIgnore
     private History history;
-
 
     /**
      * Konstruktor för att skapa ett Article-objekt.
@@ -73,6 +69,11 @@ public class Article {
         }
     }
 
+    /**
+     * Override metod som kollar om ett objekt är en instans av ett Article-objekt och om deras id är lika.
+     * @param o är objektet som ska jämföras med.
+     * @return true om objekten är lika, annars false.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,6 +82,10 @@ public class Article {
         return id != null && id.equals(article.id);
     }
 
+    /**
+     * Override metod som returnerar hashkoden för ett Article-objekt.
+     * @return hashkoden för ett Article-objekt.
+     */
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
