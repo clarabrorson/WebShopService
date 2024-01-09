@@ -48,7 +48,7 @@ public class CartController {
         Cart cart = cartService.getCartById(id);
 
         if (cart != null) {
-            // Assuming calculateTotalCost is already setting the total cost in the service
+
             return ResponseEntity.ok(cart);
         } else {
             return ResponseEntity.notFound().build();
@@ -65,7 +65,7 @@ public class CartController {
     private Cart addArticleToCart(@PathVariable Long id, @RequestBody AddToCartRequest request){
         User currentUser = userService.getCurrentUser();
         cartService.addArticleToCartFromDB(id, request.getQuantity(), currentUser);
-        // Ensure you fetch the updated cart associated with the current user
+
         return cartService.getCartForCurrentUser();
     }
 

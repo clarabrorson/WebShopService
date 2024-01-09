@@ -28,6 +28,11 @@ public class WebShopServiceApplication {
 
 	/**
 	 * Denna metod används för att lägga till initial data i databasen om den är tom.
+	 * En roll med auktoriteten "ADMIN" skapas och sparas i databasen.
+	 * En roll med auktoriteten "USER" skapas och sparas i databasen.
+	 * En user med auktoriteten "ADMIN" skapas med användarnamnet "admin" och lösenordet "password" och sparas i databasen.
+	 * 20 st artiklar skapas och sparas i databasen.
+	 *
 	 * @param roleRepository är ett RoleRepository-objekt som används för att spara roller i databasen.
 	 * @param userRepository är ett UserRepository-objekt som används för att spara användare i databasen.
 	 * @param passwordEncoder är ett PasswordEncoder-objekt som används för att kryptera lösenord.
