@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 import java.util.List;
 
 /**
- * Denna klass används för att hantera förfrågningar till <a href="http://localhost:8081/webshop/articles">...</a> från klienten till API:et.
+ * Denna klass används för att hantera förfrågningar till webshop/articles från klienten till API:et.
  * Klassen används för att hämta, lägga till, uppdatera och ta bort artiklar från databasen.
  * Beroende på användarens roll, kommer användaren att ha tillgång till olika delar av API:et.
  *
