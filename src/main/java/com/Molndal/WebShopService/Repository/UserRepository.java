@@ -7,7 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * @Author Jafar
+ * Repository interface för att hantera databasoperationer för användare.
+ * Innehåller metoder för att hämta användare från databasen.
+ * Används av UserService-klassen.
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 

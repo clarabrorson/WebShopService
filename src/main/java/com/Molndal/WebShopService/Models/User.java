@@ -131,23 +131,10 @@ public class User implements UserDetails {
         return true;
     }
 
-    @JsonIgnore
-    public Set<Article> getCartItems() {
-        if (this.cart != null) {
-            return this.cart.getCartItems().stream()
-                    .map(CartItem::getArticle)
-                    .collect(Collectors.toSet());
-        } else {
-            return new HashSet<>();
-        }
-    }
-
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
 
-    public Long getCartId() { // hämtar kundvagnens id om den finns
-        return this.cart != null ? this.cart.getId() : null;
-    }
+
 }

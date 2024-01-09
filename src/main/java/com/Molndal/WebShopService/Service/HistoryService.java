@@ -35,26 +35,13 @@ public class HistoryService {
         return historyRepository.findAll();
     }
 
-    // Hämta historik för den aktuella användaren
-//    public List<Article> getUserHistory() {
-//        // Hämta den inloggade användaren
-//        User currentUser = userService.getCurrentUser();
-//
-//        if (currentUser != null) {
-//            // om användaren finns, hämta historik för användaren
-//            List<History> userHistory = historyRepository.findByUser(currentUser);
-//
-//            // Samla alla köpta artiklar från historiken
-//            List<Article> purchasedArticles = userHistory.stream()
-//                    .flatMap(history -> history.getPurchasedArticles().stream())
-//                    .collect(Collectors.toList());
-//
-//            return purchasedArticles;
-//        } else {
-//            // Hantera fallet när användaren inte finns
-//            return Collections.emptyList();
-//        }
-//    }
+    /**
+     * @Method getUserHistory
+     * @return List<History>
+     * denna metod hämtar historik för inloggad användare
+     * använder sig av userService.getCurrentUser() för att hämta inloggad användare
+     * om användaren inte finns returneras en tom lista
+     * */
     public List<History> getUserHistory() {
         User currentUser = userService.getCurrentUser();
 
