@@ -10,13 +10,18 @@ The application will automatically create an admin account if it does not alread
 **JavaDoc** can be found here: *WebShopServie/index.HTML*
 
 ## Functionality
-
+### User functionality
 **All users can:**
 - Browse through articles.
+- Register an account.
+- Login to their account.
 
 **Logged-in users can:** 
-- Browse through articles, add them to their shopping cart and place orders.
+- Browse through articles, add articles to their shopping cart, choose article quantity and place orders.
+- See their order history.
 
+
+### Admin functionality
 **Admins users can:** 
 - Do everything a regular user can do.
 - Create, read, update and delete articles.
@@ -57,11 +62,12 @@ Before you can start this project, you must follow these steps:
 - Spring Security
 - OAuth2 Client
 - Spring Boot DevTools
+- org.json
 
 
 ## Credits
 
-This project is a collaboration between:
+### Collaborators in this project:
 - **[Clara Brorson](https://github.com/clarabrorson)**
 - **[Jafar Hussein](https://github.com/Jafar-Hussein)**
 - **[Fredrik Rinstad](https://github.com/fringston)**

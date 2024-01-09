@@ -127,7 +127,6 @@ public class SecurityConfig {
     @Bean
     public JwtDecoder jwtDecoder() {
         //NimbusJwtDecoder.withPublicKey används för att skapa en JwtDecoder som använder den offentliga nyckeln från KeyProperties för att avkoda JWTs.
-        //.build() metoden används för att skapa JwtDecoder instansen.
         return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();
     }
 

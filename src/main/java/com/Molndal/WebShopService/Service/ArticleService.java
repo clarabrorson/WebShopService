@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service klass används för att utföra operationer på tabellen articles.
+ * Service klass som används för att utföra operationer på tabellen articles.
  * Klassen innehåller metoder för att hämta, lägga till, uppdatera och ta bort artiklar från databasen.
  * Varje metod är kopplad till en specifik endpoint i ArticleController.
  *
@@ -64,15 +64,12 @@ public class ArticleService {
 
         if (articleRepository.existsById(id)) {
 
-            //Hämtar ut den befintliga artikeln
             Article existingArticle = getOneArticle(id);
 
-            //Uppdaterar den befintliga artikeln
             existingArticle.setName(articleDetails.getName());
             existingArticle.setCost(articleDetails.getCost());
             existingArticle.setDescription(articleDetails.getDescription());
 
-            //Sparar den uppdaterade artikeln
             return articleRepository.save(existingArticle);
         }
         else {
