@@ -35,10 +35,11 @@ Before you can start this project, you must follow these steps:
 
 - Download and install IntelliJ IDEA or your preferred IDE.
 - Download and install MySQL and MySQL Workbench.
-- Clone this repository to your local machine.
+- Clone this repository and the [Client application](https://github.com/clarabrorson/ClientWebservice)to your local machine.
 
 ## Usage
 
+### Backend - WebShopService
 ### 1. Set up the MySQL database:
 - Open MySQL Workbench.
 - Connect to your MySQL server.
@@ -48,6 +49,7 @@ Before you can start this project, you must follow these steps:
 ### 2. Start the WebShopService application:
 - Open your IDE and run the WebShopServiceApplication class to start the application.
 
+### Client Application - ClientWebService
 ### 3. Start the client application:
 - Open your IDE and run the Main class to start the application.
 - Follow the instructions in the console to use the web-shop.
